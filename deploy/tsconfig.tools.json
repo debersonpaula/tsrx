@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["../src/tools/**/*"],
+  "compilerOptions": {
+    "outDir": "../dist-bin/tools",
+    "moduleResolution": "node",
+    "skipLibCheck": true
+  }
+}

@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist-src/ && npm run build:source && npm run build:binary && npm run build:utils && node ./deploy/post-build.js",
+    "build": "rm -rf dist-src/ && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
     "build:source": "tsc -p deploy/tsconfig.source.json",
     "build:binary": "webpack -p --colors --progress --config ./deploy/webpack.config.deploy.js",
-    "build:utils": "tsc -d -p deploy/tsconfig.utils.json",
+    "build:tools": "tsc -d -p deploy/tsconfig.tools.json",
     "deploy": "npm run build && cd dist-bin && npm publish",
     "deploy:next": "npm run build && cd dist-bin && npm publish --tag next"
   },
