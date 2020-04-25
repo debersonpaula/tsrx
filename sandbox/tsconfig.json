@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "include": [
+    "sandbox/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
