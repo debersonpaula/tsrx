@@ -1,10 +1,14 @@
 // tslint:disable: no-eval
-export default function(source: string) {
+export default function (source: string) {
   return {
     testMatch: [`<rootDir>/${source}/**/*.test.{js,jsx,ts,tsx}`],
     transform: JSON.stringify({
-      '^.+\\.(ts|tsx)$': eval(`require.resolve('./addons/babelTransform')`),
-      '^.+\\.(js|jsx)$': eval(`require.resolve('./addons/babelTransformES6')`),
+      '^.+\\.(js|jsx|ts|tsx)$': eval(
+        `require.resolve('./addons/babelTransform')`,
+      ),
+      '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': eval(
+        `require.resolve('./addons/fileTransform')`,
+      ),
     }),
     clearMocks: true,
     collectCoverage: true,
@@ -26,10 +30,7 @@ export default function(source: string) {
       ),
       '\\.(css)$': eval(`require.resolve('./addons/styleMock')`),
     },
-    setupFiles: [
-      eval(`require.resolve('./addons/test-setup')`),
-      eval(`require.resolve('./addons/test-shim')`),
-    ],
+    setupFiles: [eval(`require.resolve('./addons/test-setup')`)],
     snapshotSerializers: ['enzyme-to-json/serializer'],
     verbose: true,
     reporters: [
@@ -38,6 +39,10 @@ export default function(source: string) {
         'jest-junit',
         { outputDirectory: './coverage', outputName: './junit.xml' },
       ],
+    ],
+    transformIgnorePatterns: [
+      '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$',
+      '^.+\\.module\\.(css|sass|scss)$',
     ],
   };
 }

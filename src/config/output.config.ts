@@ -1,6 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
-import { ITSREXConfig } from '../scripts/utils/ITSREXConfig';
+import { ITSREXConfig } from '../tools/ITSREXConfig';
 
 export default function(
   webpackEnv: 'production' | 'development',

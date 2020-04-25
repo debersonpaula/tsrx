@@ -3,21 +3,20 @@ import { EnvType } from '../interfaces/envType';
 export const babelPresets = (env: EnvType) => {
   const isEnvDevelopment = env === 'development';
   const isEnvTest = env === 'test';
+  const isEnvProduction = env === 'production';
 
   return [
-    '@babel/preset-typescript',
-    [
-      '@babel/preset-react',
+    isEnvTest && [
+      // ES features necessary for user's Node version
+      '@babel/preset-env',
       {
-        // Adds component stack to warning messages
-        // Adds __self attribute to JSX which React will use for some warnings
-        development: isEnvDevelopment || isEnvTest,
-        // Will use the native built-in instead of trying to polyfill
-        // behavior for any plugins that require one.
-        useBuiltIns: true,
+        targets: {
+          node: 'current',
+        },
       },
     ],
-    [
+    (isEnvProduction || isEnvDevelopment) && [
+      // Latest stable ECMAScript features
       '@babel/preset-env',
       {
         // Allow importing core-js in entrypoint and use browserlist to select polyfills
@@ -29,12 +28,19 @@ export const babelPresets = (env: EnvType) => {
         modules: false,
         // Exclude transforms that make all code slower
         exclude: ['transform-typeof-symbol'],
-        // To use async / await and avoid
-        // error: ReferenceError: regeneratorRuntime is not defined
-        targets: {
-          node: 'current',
-        },
       },
     ],
-  ];
+    [
+      '@babel/preset-react',
+      {
+        // Adds component stack to warning messages
+        // Adds __self attribute to JSX which React will use for some warnings
+        development: isEnvDevelopment || isEnvTest,
+        // Will use the native built-in instead of trying to polyfill
+        // behavior for any plugins that require one.
+        useBuiltIns: true,
+      },
+    ],
+    '@babel/preset-typescript',
+  ].filter(Boolean);
 };

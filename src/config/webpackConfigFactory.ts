@@ -2,10 +2,9 @@
 import webpack from 'webpack';
 import path from 'path';
 import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import cwp from 'clean-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-import { ITSREXConfig } from '../scripts/utils/ITSREXConfig';
 import webpackOutputConfig from './output.config';
 import { babelLoader } from './rules/babelLoader';
 import { tsLintLoader } from './rules/tsLintLoader';
@@ -14,6 +13,7 @@ import { fileLoader } from './rules/fileLoader';
 import { styleLoader } from './rules/styleLoader';
 import { htmlConfigPlugin } from './plugins/htmlConfigPlugin';
 import { terserConfigPlugin } from './plugins/terserConfigPlugin';
+import { ITSREXConfig } from '../tools/ITSREXConfig';
 
 export default function(
   webpackEnv: 'production' | 'development',
@@ -94,7 +94,7 @@ export default function(
       new webpack.EnvironmentPlugin(nodeEnv),
       // CLEARER
       isEnvProduction &&
-        new CleanWebpackPlugin({
+        new cwp.CleanWebpackPlugin({
           dry: false,
           verbose: true,
           cleanOnceBeforeBuildPatterns: [
@@ -109,7 +109,6 @@ export default function(
           analyzerMode: 'static',
           openAnalyzer: false,
         }),
-      ...configReactData.plugins,
     ].filter(Boolean),
     // ==== OPTIMIZE ==========================================================================
     optimization: {

@@ -1,24 +1,8 @@
 {
   "defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended"
-  ],
+  "extends": ["tslint:recommended"],
   "rules": {
-    "quotemark": [
-      true,
-      "single",
-      "jsx-double"
-    ],
-    "max-line-length": [
-      true,
-      150
-    ],
-    "object-literal-sort-keys": false,
-    "jsx-no-multiline-js": false,
-    "jsx-wrap-multiline": false,
-    "object-literal-key-quotes": false,
-    "ordered-imports": false,
-    "max-classes-per-file": false,
-    "member-access": false
+    "quotemark": [true, "single", "jsx-double"],
+    "max-line-length": [true, 150]
   }
 }
