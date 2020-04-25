@@ -12,7 +12,7 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
     const configFile = args[0];
 
     // load configutation react data
-    const configReactData = loadConfigFile(configFile);
+    const configReactData = loadConfigFile(configFile, basePath);
 
     // webpack compiler
     const compiler = webpackCompiler(configReactData, basePath, 'development');
@@ -24,14 +24,14 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
     const cfgdev = configDevServer(
       configReactData.host,
       false,
-      configReactData.devServer
+      configReactData.devServer,
     );
     const devServer = new WebpackDevServer(compiler, cfgdev);
     const port = configReactData.port;
     const hostname = configReactData.host;
 
     // start web dev server
-    devServer.listen(port, hostname, error => {
+    devServer.listen(port, hostname, (error) => {
       if (error) {
         return reject(error);
       }

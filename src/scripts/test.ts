@@ -9,7 +9,7 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
   const configFile = args[0];
 
   // load configutation react data
-  const configReactData = loadConfigFile(configFile);
+  const configReactData = loadConfigFile(configFile, basePath);
 
   // load jest config
   const jestBaseOptions = jestBaseConfig(configReactData.source);

@@ -1,6 +1,8 @@
 export type IScriptCallback = (
   args: string[],
-  basePath: string
+  basePath: string,
 ) => Promise<any>;
 
-export interface IScripts { [scriptName: string]: IScriptCallback }
+export interface IScripts {
+  [scriptName: string]: IScriptCallback;
+}

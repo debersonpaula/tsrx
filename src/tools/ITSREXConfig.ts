@@ -19,12 +19,6 @@ interface ITSREXConfigBase {
   reactHotLoader: boolean;
 
   /**
-   * OBSOLETE:
-   * use webpack instead
-   */
-  plugins: any[];
-
-  /**
    * Webpack customization
    * any properties define in this property
    * will override TSREX config
