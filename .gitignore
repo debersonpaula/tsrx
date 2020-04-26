@@ -1,7 +1,5 @@
 node_modules/
 npm-debug.log*
 dist/
-dist-src/
-dist-bin/
 coverage/
 __snapshots__

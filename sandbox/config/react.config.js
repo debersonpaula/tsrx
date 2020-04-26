@@ -1,13 +1,13 @@
 'use strict';
 
-var trsConfig = require('../../dist-bin/tools/tsReactConfig')
+var trsConfig = require('../../dist/bin/tools/tsReactConfig')
   .tsReactConfigValidator;
 
 module.exports = trsConfig({
   // source of files
   source: 'sandbox',
   // output path
-  outputPath: 'dist-sandbox',
+  outputPath: 'dist/sandbox-build',
   // port
   port: 8080,
   // hostname

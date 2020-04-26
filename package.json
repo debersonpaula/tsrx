@@ -4,13 +4,18 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf ./dist-src && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
+    "build": "npm run clear && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
     "build:source": "tsc -p deploy/tsconfig.source.json",
     "build:binary": "webpack -p --colors --progress --config ./deploy/webpack.config.deploy.js",
     "build:tools": "tsc -d -p deploy/tsconfig.tools.json",
+    "clear" : "rm -rf ./dist",
     "deploy": "npm run build && cd dist-bin && npm publish",
     "deploy:next": "npm run build && cd dist-bin && npm publish --tag next",
-    "start": "node dist-bin/tsreact start sandbox/config/react.config.js",
+    "sb:start": "node dist/bin/tsreact start sandbox/config/react.config.js",
+    "sb:build": "node dist/bin/tsreact build sandbox/config/react.config.js",
+    "sb:test": "node dist/bin/tsreact test sandbox/config/react.config.js",
+    "sb:lib": "node dist/bin/tsreact library sandbox/config/react.config.lib.js",
+    "sb:static": "node dist/bin/tsreact build sandbox/config/react.config.static.js",
     "tsc": "tsc"
   },
   "bin": {

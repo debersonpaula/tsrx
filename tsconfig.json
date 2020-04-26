@@ -9,10 +9,10 @@
     "jsx": "react",
     "lib": ["es5", "es2015", "es6", "dom"],
     "module": "commonjs",
-    "sourceMap": true,
+    "sourceMap": false,
     "target": "es5",
     "paths": {
-      "tsreact/*": ["dist-bin/*"]
+      "tsreact/*": ["dist/bin/*"]
     }
   },
   "exclude": ["node_modules", "sandbox/**/*"]
