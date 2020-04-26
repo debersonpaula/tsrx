@@ -1,5 +1,5 @@
 import loadConfigFile from './utils/loadConfigFile';
-import jest from 'jest';
+import * as jest from 'jest';
 import deepmerge from 'deepmerge';
 import { IScriptCallback } from './utils/IScriptCallback';
 import jestBaseConfig from '../config/jestBaseConfig';

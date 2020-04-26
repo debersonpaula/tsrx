@@ -1,6 +1,5 @@
 import WebpackDevServer from 'webpack-dev-server';
 import loadConfigFile from './utils/loadConfigFile';
-
 import configDevServer from '../config/webpackDevServer.config';
 import logger from './utils/logger';
 import { IScriptCallback } from './utils/IScriptCallback';

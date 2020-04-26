@@ -1,5 +1,5 @@
-import loadConfigFile from './utils/loadConfigFile';
 import chalk from 'chalk';
+import loadConfigFile from './utils/loadConfigFile';
 import logger from './utils/logger';
 import { IScriptCallback } from './utils/IScriptCallback';
 import webpackCompiler from './utils/webpackCompiler';

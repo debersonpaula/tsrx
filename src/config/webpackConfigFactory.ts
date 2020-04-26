@@ -2,7 +2,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
-import cwp from 'clean-webpack-plugin';
+import * as cwp from 'clean-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import webpackOutputConfig from './output.config';
