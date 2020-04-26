@@ -1,5 +1,4 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -9,10 +8,10 @@ module.exports = {
     __dirname: false,
   },
   // ==== ENTRY ============================================================================
-  entry: [path.join(__dirname, '../dist-src/tsreact.js')],
+  entry: [path.join(__dirname, '../dist/src/tsreact.js')],
   // ==== OUTPUT ===========================================================================
   output: {
-    path: path.join(__dirname, '../dist-bin'),
+    path: path.join(__dirname, '../dist/bin'),
     filename: 'tsreact.js',
     sourcePrefix: '',
     libraryTarget: 'commonjs',
@@ -32,20 +31,13 @@ module.exports = {
   },
   // ==== PLUGINS ===========================================================================
   plugins: [
-    new CleanWebpackPlugin({
-      dry: false,
-      verbose: true,
-      cleanOnceBeforeBuildPatterns: [
-        path.join(__dirname, '../dist-bin', '/**/*'),
-      ],
-    }),
     new CopyWebpackPlugin([
       {
-        from: './dist-src/config/addons',
+        from: './dist/src/config/addons',
         to: 'addons',
       },
       {
-        from: './dist-src/config/utils',
+        from: './dist/src/config/utils',
         to: 'utils',
       },
       {
