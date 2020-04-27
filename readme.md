@@ -1,4 +1,4 @@
-# TSREACT
+# TSRX
 
 This package replaces TSREX, due to removal of EXREDUX from the packages, giving freedom to choose any state management.
 
@@ -18,17 +18,17 @@ The builder has the following module bundlers:
 ## Install
 
 ```bash
-# install TSREACT
-npm i -S tsreact
+# install tsrx
+npm i -S tsrx
 ```
 
 ## Setup tsconfig and tslint
 
-Extend base tsconfig.json from TSREX folder:
+Extend base tsconfig.json from TSRX folder:
 
 ```json
 {
-  "extends": "./node_modules/tsreact/tsconfig.json",
+  "extends": "./node_modules/tsrx/tsconfig.json",
   "compilerOptions": {
 
   }
@@ -39,7 +39,7 @@ Same for tslint.json:
 
 ```json
 {
-  "extends": "./node_modules/tsreact/tslint.json",
+  "extends": "./node_modules/tsrx/tslint.json",
 
 }
 ```

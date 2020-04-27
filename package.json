@@ -1,5 +1,5 @@
 {
-  "name": "tsx-react",
+  "name": "tsrx",
   "description": "Typescript + React",
   "version": "0.0.1-alpha.1",
   "main": "index.js",
@@ -11,15 +11,15 @@
     "clear": "rm -rf ./dist",
     "deploy": "npm run build && cd dist/bin && npm publish",
     "deploy:next": "npm run build && cd dist/bin && npm publish --tag next",
-    "sb:start": "node dist/bin/tsreact start sandbox/config/react.config.js",
-    "sb:build": "node dist/bin/tsreact build sandbox/config/react.config.js",
-    "sb:test": "node dist/bin/tsreact test sandbox/config/react.config.js",
-    "sb:lib": "node dist/bin/tsreact library sandbox/config/react.config.lib.js",
-    "sb:static": "node dist/bin/tsreact build sandbox/config/react.config.static.js",
+    "sb:start": "node dist/bin/tsrx start sandbox/config/react.config.js",
+    "sb:build": "node dist/bin/tsrx build sandbox/config/react.config.js",
+    "sb:test": "node dist/bin/tsrx test sandbox/config/react.config.js",
+    "sb:lib": "node dist/bin/tsrx library sandbox/config/react.config.lib.js",
+    "sb:static": "node dist/bin/tsrx build sandbox/config/react.config.static.js",
     "tsc": "tsc"
   },
   "bin": {
-    "tsreact": "./index.js"
+    "tsrx": "./index.js"
   },
   "author": "D.A.Paula <deberson.paula@gmail.com>",
   "license": "MIT",

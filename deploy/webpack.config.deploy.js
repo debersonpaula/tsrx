@@ -8,11 +8,11 @@ module.exports = {
     __dirname: false,
   },
   // ==== ENTRY ============================================================================
-  entry: [path.join(__dirname, '../dist/src/tsreact.js')],
+  entry: [path.join(__dirname, '../dist/src/main-script.js')],
   // ==== OUTPUT ===========================================================================
   output: {
     path: path.join(__dirname, '../dist/bin'),
-    filename: 'tsreact.js',
+    filename: 'tsrx.js',
     sourcePrefix: '',
     libraryTarget: 'commonjs',
   },
