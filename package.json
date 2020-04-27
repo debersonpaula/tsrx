@@ -1,7 +1,7 @@
 {
   "name": "tsrx",
   "description": "Typescript + React",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
     "build": "npm run clear && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
@@ -74,5 +74,17 @@
     "reflect-metadata": "0.1.13",
     "ts-loader": "7.0.1",
     "webpack-cli": "3.3.11"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/debersonpaula/tsrx.git"
+  },
+  "keywords": [
+    "typescript",
+    "react"
+  ],
+  "bugs": {
+    "url": "https://github.com/debersonpaula/tsrx/issues"
+  },
+  "homepage": "https://github.com/debersonpaula/tsrx#readme"
 }
