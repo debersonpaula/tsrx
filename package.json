@@ -1,7 +1,7 @@
 {
-  "name": "tsreact",
+  "name": "tsx-react",
   "description": "Typescript + React",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha.1",
   "main": "index.js",
   "scripts": {
     "build": "npm run clear && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
@@ -9,8 +9,8 @@
     "build:binary": "webpack -p --colors --progress --config ./deploy/webpack.config.deploy.js",
     "build:tools": "tsc -d -p deploy/tsconfig.tools.json",
     "clear" : "rm -rf ./dist",
-    "deploy": "npm run build && cd dist-bin && npm publish",
-    "deploy:next": "npm run build && cd dist-bin && npm publish --tag next",
+    "deploy": "npm run build && cd dist/bin && npm publish",
+    "deploy:next": "npm run build && cd dist/bin && npm publish --tag next",
     "sb:start": "node dist/bin/tsreact start sandbox/config/react.config.js",
     "sb:build": "node dist/bin/tsreact build sandbox/config/react.config.js",
     "sb:test": "node dist/bin/tsreact test sandbox/config/react.config.js",
