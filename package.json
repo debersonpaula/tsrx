@@ -8,7 +8,7 @@
     "build:source": "tsc -p deploy/tsconfig.source.json",
     "build:binary": "webpack -p --colors --progress --config ./deploy/webpack.config.deploy.js",
     "build:tools": "tsc -d -p deploy/tsconfig.tools.json",
-    "clear" : "rm -rf ./dist",
+    "clear": "rm -rf ./dist",
     "deploy": "npm run build && cd dist/bin && npm publish",
     "deploy:next": "npm run build && cd dist/bin && npm publish --tag next",
     "sb:start": "node dist/bin/tsreact start sandbox/config/react.config.js",
