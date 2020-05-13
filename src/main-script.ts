@@ -1,9 +1,9 @@
-import logger from './scripts/utils/logger';
 import { IScripts } from './scripts/utils/IScriptCallback';
 import scriptStart from './scripts/start';
 import scriptBuild from './scripts/build';
 import scriptLibrary from './scripts/library';
 import scriptTest from './scripts/test';
+import logger from './tools/logger';
 
 // Makes the script crash on unhandled rejections
 process.on('unhandledRejection', (err) => {
@@ -30,18 +30,18 @@ if (scriptHandler && typeof scriptHandler === 'function') {
 
   result
     .then((response) => {
-      logger('Loaded script!');
+      logger.information('Loaded script!');
       if (scriptName === 'test' && !response.results.success) {
         process.exit(1);
       }
     })
     .catch((err) => {
-      logger(`Script "${scriptName}" executed with error.`);
-      logger(err);
+      logger.information(`Script "${scriptName}" executed with error.`);
+      logger.information(err);
       process.exit(1);
     });
 } else {
-  logger(
+  logger.information(
     `Script "${scriptName}" does not exists or does not have handle to execute.`,
   );
   process.exit(1);

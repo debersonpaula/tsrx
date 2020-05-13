@@ -9,10 +9,10 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
   const configFile = args[0];
 
   // load configutation react data
-  const configReactData = loadConfigFile(configFile, basePath);
+  const configReactData = loadConfigFile(configFile);
 
   // load jest config
-  const jestBaseOptions = jestBaseConfig(configReactData.source);
+  const jestBaseOptions = jestBaseConfig(configReactData.sourcePath);
 
   const jestOptions: any = configReactData.jest
     ? deepmerge(jestBaseOptions, configReactData.jest)

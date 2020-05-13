@@ -1,19 +1,13 @@
 import { ITSREXConfig } from './ITSREXConfig';
+import defaultConfig from './defaultConfig';
+import logger from '../tools/logger';
 
-export function tsReactConfigValidator(config: Partial<ITSREXConfig>): ITSREXConfig {
-  return {
-    source: config.source,
-    sourceFile: config.sourceFile,
-    port: config.port || parseInt(process.env.PORT, 10) || 8080,
-    host: config.host || process.env.HOST || '0.0.0.0',
-    nodeEnv: config.nodeEnv,
-    htmlEnv: config.htmlEnv,
-    outputPath: config.outputPath,
-    library: config.library,
-    jest: config.jest,
-    outputStatic: config.outputStatic,
-    devServer: config.devServer,
-    reactHotLoader: config.reactHotLoader,
-    webpack: config.webpack || {},
-  };
+logger.warning(`
+  DEPRECATION WARNING:
+  The method tsReactConfigValidator will be deprecated. Use defaultConfig.
+  Ex.: require('tsrx/tools/defaultConfig')
+`);
+
+export function tsReactConfigValidator(config: ITSREXConfig): ITSREXConfig {
+  return defaultConfig(config);
 }

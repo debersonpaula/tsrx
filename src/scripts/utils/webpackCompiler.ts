@@ -1,10 +1,9 @@
 import webpack from 'webpack';
-import chalk from 'chalk';
-import logger from './logger';
+import logger from '../../tools/logger';
 import configWebpack from '../../config/webpackConfigFactory';
 import { ITSREXConfig } from '../../tools/ITSREXConfig';
 
-export default function(
+export default function (
   configReactData: ITSREXConfig,
   basePath: string,
   webpackEnv: 'production' | 'development',
@@ -17,14 +16,10 @@ export default function(
   try {
     compiler = webpack(config);
   } catch (err) {
-    logger(
-      chalk.red('==========================================================='),
-    );
-    logger(chalk.red('COMPILATION ERROR: '));
-    logger(chalk.red(err.message || err));
-    logger(
-      chalk.red('==========================================================='),
-    );
+    logger.error('===========================================================');
+    logger.error('COMPILATION ERROR: ');
+    logger.error(err.message || err);
+    logger.error('===========================================================');
     return undefined;
   }
 
