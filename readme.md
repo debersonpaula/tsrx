@@ -54,7 +54,7 @@ var trsConfig = require('tsrx/tools/tsReactConfig').tsReactConfigValidator;
 
 module.exports = trsConfig({
   // source of files
-  source: 'src',
+  sourcePath: 'src',
   // output path
   outputPath: 'dist',
   // port to be used in development

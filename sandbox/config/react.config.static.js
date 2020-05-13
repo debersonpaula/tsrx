@@ -5,7 +5,7 @@ var trsConfig = require('../../dist/bin/tools/tsReactConfig')
 
 module.exports = trsConfig({
   // source of files
-  source: 'sandbox/static',
+  sourcePath: 'sandbox/static',
   // output path
   outputPath: 'dist/sandbox-static',
   // if outputStatic is set with a string

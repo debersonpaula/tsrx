@@ -5,23 +5,21 @@ var trsConfig = require('../../dist/bin/tools/tsReactConfig')
 
 module.exports = trsConfig({
   // source of files
-  source: 'sandbox',
+  sourcePath: 'sandbox',
   // output path
   outputPath: 'dist/sandbox-build',
   // port
   port: 8080,
   // hostname
   host: 'localhost',
-  // all enviroments to be set in process.env
-  nodeEnv: {
-    comments: 'Comment from Node Enviroments',
-    booleanValue: true,
-    numericValue: 37,
-  },
-  // all enviroments to be set in HTMLWebpackPlugin
-  // available in HTML thru <%= htmlWebpackPlugin.options.propertyName %>
-  htmlEnv: {
-    htmlComments: 'Comment from HTML Enviroment',
+  // all enviroments config
+  env: {
+    ParamNumber: 7,
+    ParamAny: 'Any config from env',
+    ParamText: 'Text from env',
+    ParamBoolean1: false,
+    ParamBoolean2: true,
+    ParamObject: { label: 'Label from env', value: 'Value from env' }
   },
   // enable React Hot Loader
   reactHotLoader: true,

@@ -5,7 +5,7 @@ var trsConfig = require('../../dist/bin/tools/tsReactConfig')
 
 module.exports = trsConfig({
   // source of files
-  source: 'sandbox',
+  sourcePath: 'sandbox',
   // output path
   outputPath: 'dist/sandbox-lib',
   // all enviroments to be set in process.env
