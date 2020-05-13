@@ -15,7 +15,7 @@ import { htmlConfigPlugin } from './plugins/htmlConfigPlugin';
 import { terserConfigPlugin } from './plugins/terserConfigPlugin';
 import { ITSREXConfig } from '../tools/ITSREXConfig';
 
-export default function(
+export default function (
   webpackEnv: 'production' | 'development',
   basePath: string,
   configReactData: ITSREXConfig,
@@ -26,12 +26,13 @@ export default function(
   const isEnvLibrary = configReactData.library;
   const isEnvStatic = configReactData.outputStatic != null;
 
-  const sourcePath = path.resolve(basePath, configReactData.source);
+  const sourcePath = path.resolve(basePath, configReactData.sourcePath);
   const sourceFile = configReactData.sourceFile;
   const nodeEnv = {
     isEnvDevelopment: isEnvDevelopment.toString(),
     isEnvProduction: isEnvProduction.toString(),
     NODE_ENV: webpackEnv,
+    CONFIG_ENV: JSON.stringify(configReactData.env),
     ...configReactData.nodeEnv,
   };
 
@@ -45,7 +46,7 @@ export default function(
       isEnvDevelopment &&
         `webpack-dev-server/client?http://${configReactData.host}:${configReactData.port}`,
       isEnvDevelopment && 'webpack/hot/dev-server',
-      path.join(sourcePath, sourceFile || 'index.tsx'),
+      path.join(sourcePath, sourceFile),
     ].filter(Boolean),
     // ==== OUTPUT ===========================================================================
     output: webpackOutputConfig(webpackEnv, basePath, configReactData),
@@ -83,8 +84,8 @@ export default function(
       !isEnvLibrary &&
         !isEnvStatic &&
         htmlConfigPlugin(
-          path.join(sourcePath, 'index.html'),
-          configReactData.htmlEnv,
+          path.join(sourcePath, configReactData.htmlTemplate),
+          { ...configReactData.htmlEnv, ...configReactData.env },
           isEnvProduction,
         ),
 
