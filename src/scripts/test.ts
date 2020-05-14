@@ -21,6 +21,9 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
   // stringify the modules to be accepted in jest run cli
   jestOptions.moduleNameMapper = JSON.stringify(jestOptions.moduleNameMapper);
 
+  // define CONFIG_ENV before tests
+  process.env.CONFIG_ENV = JSON.stringify(configReactData.env);
+
   // run tests
   return jest.runCLI(jestOptions, [basePath]);
 };

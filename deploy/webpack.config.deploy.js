@@ -69,6 +69,7 @@ module.exports = {
     'react',
     'react-dom',
     'terser-webpack-plugin',
+    'typescript',
     'webpack',
     'webpack-bundle-analyzer',
     'webpack-dev-server',
