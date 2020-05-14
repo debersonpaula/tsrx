@@ -1,5 +1,5 @@
 import { ITSREXConfig } from './ITSREXConfig';
-import defaultConfig from './defaultConfig';
+import { DefaultConfig } from './defaultConfig';
 import logger from '../tools/logger';
 
 logger.warning(`
@@ -9,5 +9,5 @@ logger.warning(`
 `);
 
 export function tsReactConfigValidator(config: ITSREXConfig): ITSREXConfig {
-  return defaultConfig(config);
+  return DefaultConfig(config);
 }

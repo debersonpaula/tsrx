@@ -1,7 +1,7 @@
 import { ITSREXConfig } from './ITSREXConfig';
 import logger from './logger';
 
-export default function (config: ITSREXConfig) {
+export function DefaultConfig(config: ITSREXConfig) {
   if (!config.sourcePath) {
     throw new Error('ERROR: SourcePath not provided in the config file');
   }
@@ -16,9 +16,21 @@ export default function (config: ITSREXConfig) {
 
   if (config.nodeEnv) {
     logger.warning(`
-  DEPRECATION WARNING:
-  The property "nodeEnv" in config will be deprecated and removed.
+  USAGE WARNING:
+  The property "nodeEnv" in config will be used only for build/debug purposes.
   Use "env" instead.
+    `);
+  }
+
+  if (!config.configFile && !config.skipConfigFile) {
+    logger.warning(`
+  ENVIRONMENT WARNING:
+  The property "configFile" is not set.
+  The validation of environment will not run and the variables will
+  be not verified if "env" does not have that variable.
+  Consider adding this file.
+
+  TO REMOVE THIS MESSAGE, set option skipConfigFile = true
     `);
   }
 

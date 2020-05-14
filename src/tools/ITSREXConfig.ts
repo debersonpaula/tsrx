@@ -101,6 +101,18 @@ export interface ITSREXConfigBase {
    * will override TSREX config
    */
   webpack: WebpackConfiguration;
+
+  /**
+   * specify de Config file
+   * created by EnvironmentConfigurator to be validate against
+   * environment variables specified in "env"
+   */
+  configFile: string;
+
+  /**
+   * ignore the config file validation
+   */
+  skipConfigFile: boolean;
 }
 
 export type ITSREXConfig = Partial<ITSREXConfigBase>;
