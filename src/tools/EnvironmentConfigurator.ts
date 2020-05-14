@@ -40,7 +40,7 @@ export default function <T>(configurationClassType: IType<T>): T {
         ErrorConfigurationError(configurationClassType.name, property);
         isFailed = true;
       } else {
-        configObject[property] = configFromEnv;
+        configObject[property] = ParseConfig(configFromEnv);
       }
     }
   });
@@ -67,4 +67,14 @@ function ErrorConfigurationError(objectName: string, property: string) {
 
 =============================
  `);
+}
+
+function ParseConfig(configValue: any) {
+  let result: any;
+  try {
+    result = JSON.parse(configValue);
+  } catch {
+    result = configValue;
+  }
+  return result;
 }
