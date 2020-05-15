@@ -1,7 +1,7 @@
 import WebpackDevServer from 'webpack-dev-server';
 import loadConfigFile from './utils/loadConfigFile';
 import configDevServer from '../config/webpackDevServer.config';
-import logger from './utils/logger';
+import logger from '../tools/logger';
 import { IScriptCallback } from './utils/IScriptCallback';
 import webpackCompiler from './utils/webpackCompiler';
 
@@ -11,7 +11,7 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
     const configFile = args[0];
 
     // load configutation react data
-    const configReactData = loadConfigFile(configFile, basePath);
+    const configReactData = loadConfigFile(configFile);
 
     // webpack compiler
     const compiler = webpackCompiler(configReactData, basePath, 'development');
@@ -34,10 +34,13 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
       if (error) {
         return reject(error);
       }
-      logger('===========================================================');
-      logger(`STARTED WEB DEV SERVER ON http://${hostname}:${port}`);
-      logger('===========================================================');
+      logger.information(`
 
+      ===========================================================
+      STARTED WEB DEV SERVER ON http://${hostname}:${port}
+      ===========================================================
+
+      `);
       resolve();
     });
   });

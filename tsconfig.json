@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
+    "outDir": "dist/out",
     "declaration": false,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
@@ -12,7 +13,7 @@
     "sourceMap": false,
     "target": "es5",
     "paths": {
-      "tsreact/*": ["dist/bin/*"]
+      "tsrx/*": ["dist/bin/*"]
     }
   },
   "exclude": ["node_modules", "sandbox/**/*"]

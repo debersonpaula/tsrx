@@ -1,11 +1,10 @@
 'use strict';
 
-var trsConfig = require('../../dist/bin/tools/tsReactConfig')
-  .tsReactConfigValidator;
+var DefaultConfig = require('../../dist/bin/tools').DefaultConfig;
 
-module.exports = trsConfig({
+module.exports = DefaultConfig({
   // source of files
-  source: 'sandbox/static',
+  sourcePath: 'sandbox/static',
   // output path
   outputPath: 'dist/sandbox-static',
   // if outputStatic is set with a string

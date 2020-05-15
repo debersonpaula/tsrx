@@ -1,27 +1,35 @@
 'use strict';
 
-var trsConfig = require('../../dist/bin/tools/tsReactConfig')
-  .tsReactConfigValidator;
+// For debug purpose only
+process.env.DEBUG_OVERRIDE_TSRX_SOURCE = './';
 
-module.exports = trsConfig({
+// Inject paths inside the test
+const tsconfig = require(require('path').resolve(process.cwd(), 'tsconfig.json'));
+const paths = tsconfig.compilerOptions.paths;
+const moduleNameMapper = {};
+for (var key in paths) {
+  moduleNameMapper[key.replace('*', '(.*)')] = '<rootDir>/' + paths[key][0].replace('*', '$1');
+}
+
+var DefaultConfig = require('../../dist/bin/tools').DefaultConfig;
+
+module.exports = DefaultConfig({
   // source of files
-  source: 'sandbox',
+  sourcePath: 'sandbox',
   // output path
   outputPath: 'dist/sandbox-build',
   // port
   port: 8080,
   // hostname
   host: 'localhost',
-  // all enviroments to be set in process.env
-  nodeEnv: {
-    comments: 'Comment from Node Enviroments',
-    booleanValue: true,
-    numericValue: 37,
-  },
-  // all enviroments to be set in HTMLWebpackPlugin
-  // available in HTML thru <%= htmlWebpackPlugin.options.propertyName %>
-  htmlEnv: {
-    htmlComments: 'Comment from HTML Enviroment',
+  // all enviroments config
+  env: {
+    ParamNumber: 7,
+    ParamAny: 'Any config from env',
+    ParamText: 'Text from env',
+    ParamBoolean1: false,
+    ParamBoolean2: true,
+    ParamObject: { label: 'Label from env', value: 'Value from env' }
   },
   // enable React Hot Loader
   reactHotLoader: true,
@@ -34,6 +42,7 @@ module.exports = trsConfig({
         lines: 50,
       },
     },
+    moduleNameMapper,
     updateSnapshot: true,
   },
 
@@ -41,4 +50,8 @@ module.exports = trsConfig({
     open: true,
     hot: true,
   },
+
+  skipConfigFile: false,
+
+  configFile: 'Config.ts',
 });
