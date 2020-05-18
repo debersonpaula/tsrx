@@ -50,9 +50,9 @@ Create a js file as example below to setup the scrips command:
 Ex.: _react.config.js_
 
 ```js
-var trsConfig = require('tsrx/tools/tsReactConfig').tsReactConfigValidator;
+var DefaultConfig = require('tsrx/tools').DefaultConfig;
 
-module.exports = trsConfig({
+module.exports = DefaultConfig({
   // source of files
   sourcePath: 'src',
   // output path
@@ -99,7 +99,7 @@ Is better to set unique config file for each method:
 In case, if your tests require specific Jest configuration, include jest property in your _react.config.test.js_:
 
 ```js
-module.exports = trsConfig({
+module.exports = DefaultConfig({
   source: 'application',
   outputPath: '',
   nodeEnv: {},
@@ -130,7 +130,7 @@ module.exports = trsConfig({
 In case if is necessary to customize webpack-dev-server options, just include "__devServer__" in your _react.config.test.js_:
 
 ```js
-module.exports = trsConfig({
+module.exports = DefaultConfig({
   devServer: {
     open: true,
     hot: true,
@@ -145,7 +145,7 @@ module.exports = trsConfig({
 
 Any properties defined in this property will override TSREX config:
 ```js
-module.exports = trsConfig({
+module.exports = DefaultConfig({
   webpack: {
     // insert your config here
   }
@@ -158,7 +158,7 @@ This utility, enables the plugin __react-hot-loader__, that increments your appl
 
 To use this utility, just enable it in your _react.config.test.js_:
 ```js
-module.exports = trsConfig({
+module.exports = DefaultConfig({
   reactHotLoader: true,
   ...
 });
@@ -167,7 +167,7 @@ module.exports = trsConfig({
 And wrap the main app with the _reactHot_ function:
 ```tsx
 import * as React from 'react';
-import { reactHot } from 'tsrx/tools/reactHot';
+import { reactHot } from 'tsrx/tools';
 
 class App extends React.Component {
   render() {
