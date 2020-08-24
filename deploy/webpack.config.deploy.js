@@ -31,32 +31,34 @@ module.exports = {
   },
   // ==== PLUGINS ===========================================================================
   plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: './dist/src/config/addons',
-        to: 'addons',
-      },
-      {
-        from: './dist/src/config/utils',
-        to: 'utils',
-      },
-      {
-        from: './tsconfig.json',
-        to: '',
-      },
-      {
-        from: './tslint.json',
-        to: '',
-      },
-      {
-        from: './readme.md',
-        to: '',
-      },
-      {
-        from: './package.json',
-        to: '',
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: './dist/src/config/addons',
+          to: 'addons',
+        },
+        {
+          from: './dist/src/config/utils',
+          to: 'utils',
+        },
+        {
+          from: './tsconfig.json',
+          to: '',
+        },
+        {
+          from: './tslint.json',
+          to: '',
+        },
+        {
+          from: './readme.md',
+          to: '',
+        },
+        {
+          from: './package.json',
+          to: '',
+        },
+      ],
+    }),
   ],
 
   // ==== EXTERNALS =========================================================================

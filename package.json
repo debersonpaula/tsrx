@@ -62,20 +62,20 @@
     "tslint-loader": "3.5.4",
     "typescript": "3.9.2",
     "url-loader": "4.1.0",
-    "webpack": "4.43.0",
-    "webpack-bundle-analyzer": "3.7.0",
+    "webpack": "4.44.1",
+    "webpack-bundle-analyzer": "3.8.0",
     "webpack-dev-server": "3.11.0"
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",
     "@types/terser-webpack-plugin": "2.2.0",
-    "@types/webpack": "4.41.12",
+    "@types/webpack": "4.41.21",
     "chalk": "4.0.0",
     "clean-webpack-plugin": "3.0.0",
     "deepmerge": "4.2.2",
     "terser-webpack-plugin": "^4.1.0",
     "ts-loader": "7.0.1",
-    "webpack-cli": "3.3.11"
+    "webpack-cli": "3.3.12"
   },
   "repository": {
     "type": "git",
