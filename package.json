@@ -1,7 +1,7 @@
 {
   "name": "tsrx",
   "description": "Typescript + React",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "index.js",
   "scripts": {
     "build": "npm run clear && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
@@ -43,7 +43,7 @@
     "babel-loader": "8.1.0",
     "babel-plugin-const-enum": "1.0.1",
     "babel-plugin-transform-typescript-metadata": "0.3.0",
-    "copy-webpack-plugin": "5.1.1",
+    "copy-webpack-plugin": "6.0.3",
     "css-loader": "3.5.3",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
@@ -73,6 +73,7 @@
     "chalk": "4.0.0",
     "clean-webpack-plugin": "3.0.0",
     "deepmerge": "4.2.2",
+    "terser-webpack-plugin": "^4.1.0",
     "ts-loader": "7.0.1",
     "webpack-cli": "3.3.11"
   },
