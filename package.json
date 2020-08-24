@@ -1,7 +1,7 @@
 {
   "name": "tsrx",
   "description": "Typescript + React",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "scripts": {
     "build": "npm run clear && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
@@ -41,6 +41,7 @@
     "awesome-typescript-loader": "5.2.1",
     "babel-jest": "25.4.0",
     "babel-loader": "8.1.0",
+    "babel-plugin-const-enum": "1.0.1",
     "babel-plugin-transform-typescript-metadata": "0.3.0",
     "copy-webpack-plugin": "5.1.1",
     "css-loader": "3.5.3",

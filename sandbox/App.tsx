@@ -2,8 +2,11 @@ import * as React from 'react';
 import './style.css';
 import Config from './Config';
 
+import { EnumCheck } from './EnumCheck';
+
 export class App extends React.Component {
   render() {
+    const check = EnumCheck.TypeA;
     return (
       <div>
         <h2>React App</h2>
@@ -27,6 +30,7 @@ export class App extends React.Component {
           <li>ParamMethod() = {Config.ParamMethod()}</li>
           <li>ParamMethodArrow() = {Config.ParamMethodArrow()}</li>
         </ul>
+        <p>Enum Check = {check === EnumCheck.TypeA ? 1 : 2}</p>
       </div>
     );
   }
