@@ -3,15 +3,16 @@ import { EnvType } from '../interfaces/envType';
 export const babelPlugins = (env: EnvType, reactHotLoader: boolean) => {
   const isEnvDevelopment = env === 'development';
   const isEnvProduction = env === 'production';
+  const isEnvTest = env === 'test';
 
   return [
-    // '@babel/plugin-transform-runtime',
     'babel-plugin-transform-typescript-metadata',
     ['@babel/plugin-proposal-decorators', { legacy: true }],
     ['@babel/plugin-proposal-class-properties', { loose: true }],
     '@babel/plugin-proposal-numeric-separator',
     'const-enum',
-    [
+    isEnvTest && '@babel/plugin-transform-runtime',
+    (isEnvProduction || isEnvDevelopment) && [
       '@babel/plugin-transform-runtime',
       {
         corejs: false,
@@ -30,6 +31,6 @@ export const babelPlugins = (env: EnvType, reactHotLoader: boolean) => {
         absoluteRuntime: '@babel/runtime/package.json',
       },
     ],
-    reactHotLoader && 'react-hot-loader/babel',
+    reactHotLoader && isEnvDevelopment && 'react-hot-loader/babel',
   ].filter(Boolean);
 };
