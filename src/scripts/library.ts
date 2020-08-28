@@ -38,7 +38,9 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
     const packageFile = fs.readFileSync(path.resolve(basePath, 'package.json'));
     const packageObject = JSON.parse(packageFile.toString());
     packageObject.dependencies = {};
-    packageObject.devDependencies = {};
+    if (!configReactData.libraryDependencies) {
+      packageObject.devDependencies = {};
+    }
     packageObject.scripts = {};
     fs.writeFileSync(
       path.resolve(basePath, configReactData.outputPath, 'package.json'),

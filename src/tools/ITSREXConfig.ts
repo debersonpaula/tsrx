@@ -74,6 +74,11 @@ export interface ITSREXConfigBase {
   library: boolean;
 
   /**
+   * Include dependencies in the library package
+   */
+  libraryDependencies: boolean;
+
+  /**
    * Trigger the flag to make project to be built as unique bundle.
    *
    * To be used as static file for WebComponent for example
