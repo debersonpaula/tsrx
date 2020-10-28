@@ -6,7 +6,7 @@ import { RuleSetRule } from 'webpack';
  * A missing `test` is equivalent to a match.
  */
 export const urlLoader = (): RuleSetRule => ({
-  exclude: [/\.html$/, /\.jsx?$/, /\.js?$/, /\.tsx?$/, /\.ts?$/, /\.css$/],
+  exclude: [/\.html$/, /\.jsx?$/, /\.js?$/, /\.mjs?$/, /\.tsx?$/, /\.ts?$/, /\.css$/],
   loader: 'url-loader',
   options: {
     limit: '10000',

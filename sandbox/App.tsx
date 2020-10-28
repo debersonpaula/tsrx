@@ -4,6 +4,9 @@ import Config from './Config';
 
 import { EnumCheck } from './EnumCheck';
 
+const SampleModule = require('./SampleModule.mjs');
+const SampleFile = require('./SampleFile.js');
+
 export class App extends React.Component {
   render() {
     const check = EnumCheck.TypeA;
@@ -31,6 +34,8 @@ export class App extends React.Component {
           <li>ParamMethodArrow() = {Config.ParamMethodArrow()}</li>
         </ul>
         <p>Enum Check = {check === EnumCheck.TypeA ? 1 : 2}</p>
+        <p>Sample JS file import = {SampleFile()}</p>
+        <p>Sample JS file import = {SampleModule.Exec()}</p>
       </div>
     );
   }
