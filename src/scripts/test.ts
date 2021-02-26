@@ -14,6 +14,11 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
   // load jest config
   const jestBaseOptions = jestBaseConfig(configReactData.sourcePath);
 
+  // ignore base testMatch if the config have at least one match
+  if (configReactData.jest.testMatch) {
+    jestBaseOptions.testMatch = [];
+  }
+
   const jestOptions: any = configReactData.jest
     ? deepmerge(jestBaseOptions, configReactData.jest)
     : jestBaseOptions;

@@ -1,7 +1,7 @@
 {
   "name": "tsrx",
   "description": "Typescript + React",
-  "version": "0.2.4",
+  "version": "0.2.5-beta.1",
   "main": "index.js",
   "scripts": {
     "build": "npm run clear && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
