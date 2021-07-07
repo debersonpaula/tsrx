@@ -3,6 +3,7 @@ import './style.css';
 import Config from './Config';
 
 import { EnumCheck } from './EnumCheck';
+import { ReactComponent as ReactLogoIcon } from './assets/react-logo.svg';
 
 const SampleModule = require('./SampleModule.mjs');
 const SampleFile = require('./SampleFile.js');
@@ -36,6 +37,12 @@ export class App extends React.Component {
         <p>Enum Check = {check === EnumCheck.TypeA ? 1 : 2}</p>
         <p>Sample JS file import = {SampleFile()}</p>
         <p>Sample JS file import = {SampleModule.Exec()}</p>
+
+        <hr />
+
+        <div>
+          Logo SVG <ReactLogoIcon />
+        </div>
       </div>
     );
   }
