@@ -45,10 +45,10 @@ module.exports = {
           from: './tsconfig.json',
           to: '',
         },
-        {
-          from: './tslint.json',
-          to: '',
-        },
+        // {
+        //   from: './tslint.json',
+        //   to: '',
+        // },
         {
           from: './readme.md',
           to: '',
@@ -63,7 +63,7 @@ module.exports = {
 
   // ==== EXTERNALS =========================================================================
   externals: generateExternals([
-    'awesome-typescript-loader',
+    // 'awesome-typescript-loader',
     'axios',
     'enzyme',
     'html-webpack-plugin',
@@ -71,6 +71,7 @@ module.exports = {
     'react',
     'react-dom',
     'terser-webpack-plugin',
+    'tsconfig-paths-webpack-plugin',
     'typescript',
     'webpack',
     'webpack-bundle-analyzer',

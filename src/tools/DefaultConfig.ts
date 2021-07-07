@@ -2,14 +2,10 @@ import { ITSREXConfig } from './ITSREXConfig';
 import logger from './logger';
 
 export function DefaultConfig(config: ITSREXConfig) {
-  if (!config.sourcePath) {
-    throw new Error('ERROR: SourcePath not provided in the config file');
-  }
-
   if (config.htmlEnv) {
     logger.warning(`
   DEPRECATION WARNING:
-  The property "htmlEnv" in config will be deprecated and removed.
+  The property "htmlEnv" in config is no longer used.
   Use "env" instead.
     `);
   }
@@ -36,12 +32,14 @@ export function DefaultConfig(config: ITSREXConfig) {
 
   const defaultConfig: ITSREXConfig = {
     ...config,
+    sourcePath: config.sourcePath || 'src',
     sourceFile: config.sourceFile || 'index.tsx',
-    htmlTemplate: config.htmlTemplate || 'index.html',
+    htmlTemplate: config.htmlTemplate || 'src/index.html',
     port: config.port || parseInt(process.env.PORT, 10) || 8080,
     host: config.host || process.env.HOST || 'localhost',
     env: config.env || {},
-    webpack: config.webpack || {},
+    overrideLoader: config.overrideLoader || {},
+    webpack: config.webpack || function () {},
   };
 
   return defaultConfig;

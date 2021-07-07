@@ -1,6 +1,6 @@
-import type { Config } from '@jest/types';
-import { Configuration as WebpackConfiguration } from 'webpack';
-import { Configuration as WebpackDevConfiguration } from 'webpack-dev-server';
+// import type { Config } from '@jest/types';
+import { Configuration as WebpackConfiguration, RuleSetRule } from 'webpack';
+// import { Configuration as WebpackDevConfiguration } from 'webpack-dev-server';
 
 export interface IEnvKeyValues {
   [key: string]: string;
@@ -9,6 +9,7 @@ export interface IEnvKeyValues {
 export interface ITSREXConfigBase {
   /**
    * Source path of application files
+   * Default = src
    */
   sourcePath: string;
 
@@ -20,7 +21,7 @@ export interface ITSREXConfigBase {
 
   /**
    * Indicate the html template to run with application
-   * default = index.html
+   * default = src/index.html
    */
   htmlTemplate: string;
 
@@ -98,19 +99,19 @@ export interface ITSREXConfigBase {
   /**
    * Jest Test Customization
    */
-  jest: Config.Argv;
+  // jest: Config.Argv;
 
   /**
    * Webpack Dev Server Customization
    */
-  devServer: WebpackDevConfiguration;
+  devServer: any; // TODO: define type
 
   /**
    * Webpack customization
    * any properties define in this property
    * will override TSREX config
    */
-  webpack: WebpackConfiguration;
+  webpack: (config: WebpackConfiguration) => void;
 
   /**
    * specify de Config file
@@ -123,6 +124,16 @@ export interface ITSREXConfigBase {
    * ignore the config file validation
    */
   skipConfigFile: boolean;
+
+  /**
+   *
+   */
+  overrideLoader: {
+    urlLoader?: RuleSetRule;
+    babelLoader?: RuleSetRule;
+    styleLoader?: RuleSetRule;
+    fileLoader?: RuleSetRule;
+  };
 }
 
 export type ITSREXConfig = Partial<ITSREXConfigBase>;

@@ -34,13 +34,6 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
       if (error) {
         return reject(error);
       }
-      logger.information(`
-
-      ===========================================================
-      STARTED WEB DEV SERVER ON http://${hostname}:${port}
-      ===========================================================
-
-      `);
       resolve();
     });
   });
