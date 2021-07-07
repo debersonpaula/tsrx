@@ -1,19 +1,22 @@
 // tslint:disable: no-eval
 import webpack from 'webpack';
 import path from 'path';
-import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
-import * as cwp from 'clean-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+// import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
+// import * as cwp from 'clean-webpack-plugin';
+// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 import webpackOutputConfig from './output.config';
 import { babelLoader } from './rules/babelLoader';
-import { tsLintLoader } from './rules/tsLintLoader';
-import { urlLoader } from './rules/urlLoader';
+// import { tsLintLoader } from './rules/tsLintLoader';
 import { fileLoader } from './rules/fileLoader';
+import { imageLoader } from './rules/imageLoader';
 import { styleLoader } from './rules/styleLoader';
 import { htmlConfigPlugin } from './plugins/htmlConfigPlugin';
 import { terserConfigPlugin } from './plugins/terserConfigPlugin';
 import { ITSREXConfig } from '../tools/ITSREXConfig';
+import merge from './helpers/merge';
+import { mjsLoader } from './rules/mjsLoader';
 
 export default function (
   webpackEnv: 'production' | 'development',
@@ -33,8 +36,14 @@ export default function (
     isEnvProduction: isEnvProduction.toString(),
     NODE_ENV: webpackEnv,
     CONFIG_ENV: JSON.stringify(configReactData.env),
-    ...configReactData.nodeEnv,
+    // ...configReactData.nodeEnv,
   };
+  // const nodeEnv = {
+  //   'process.env.isEnvDevelopment': JSON.stringify(isEnvDevelopment),
+  //   'process.env.isEnvProduction': JSON.stringify(isEnvProduction),
+  //   'process.env.NODE_ENV': JSON.stringify(webpackEnv),
+  //   'process.env.CONFIG_ENV': JSON.stringify(configReactData.env),
+  // };
 
   const config: webpack.Configuration = {
     // ==== GENERAL ==========================================================================
@@ -43,9 +52,10 @@ export default function (
     bail: isEnvProduction, // Stop compilation early in production
     // ==== ENTRY ============================================================================
     entry: [
-      isEnvDevelopment &&
-        `webpack-dev-server/client?http://${configReactData.host}:${configReactData.port}`,
-      isEnvDevelopment && 'webpack/hot/dev-server',
+      // isEnvDevelopment &&
+      //   `webpack-dev-server/client?http://${configReactData.host}:${configReactData.port}`,
+      // isEnvDevelopment && 'webpack/hot/dev-server',
+      isEnvDevelopment && 'react-hot-loader/patch',
       path.join(sourcePath, sourceFile),
     ].filter(Boolean),
     // ==== OUTPUT ===========================================================================
@@ -56,27 +66,44 @@ export default function (
       strictExportPresence: true,
       rules: [
         // Disable require.ensure as it's not a standard language feature.
-        { parser: { requireEnsure: false } },
-        tsLintLoader(sourcePath),
-        {
-          oneOf: [
-            urlLoader(),
-            babelLoader(webpackEnv, configReactData.reactHotLoader),
-            styleLoader(),
-            fileLoader(),
-          ],
-        },
+        // { parser: { requireEnsure: false } },
+        // REPLACE TSLINT TO ESLINT
+        // tsLintLoader(sourcePath),
+
+        merge(
+          babelLoader(webpackEnv, configReactData.reactHotLoader),
+          configReactData.overrideLoader.babelLoader,
+        ),
+        merge(styleLoader(), configReactData.overrideLoader.styleLoader),
+        mjsLoader(),
+        imageLoader(),
+        fileLoader(), // must be the last
       ],
     },
     // ==== RESOLVE ===========================================================================
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
-      plugins: [new TsConfigPathsPlugin()],
-      alias: configReactData.reactHotLoader
-        ? {
-            'react-dom': '@hot-loader/react-dom',
-          }
-        : {},
+      // plugins: [new TsConfigPathsPlugin()],
+      plugins: [
+        new TsconfigPathsPlugin({
+          configFile: path.resolve(basePath, './tsconfig.json'),
+          extensions: ['.ts', '.tsx', '.js'],
+        }),
+      ],
+      // alias: configReactData.reactHotLoader
+      //   ? {
+      //       'react-dom': '@hot-loader/react-dom',
+      //     }
+      //   : {},
+      alias: {
+        'react-dom': configReactData.reactHotLoader
+          ? '@hot-loader/react-dom'
+          : 'react-dom',
+        // tsrx: path.resolve(basePath, 'dist/bin'),
+        process: 'process/browser',
+      },
+      // plugins: [new AliasBuilderWebpackPlugin()],
+      fallback: {},
     },
     // ==== PLUGINS ===========================================================================
     plugins: [
@@ -84,7 +111,7 @@ export default function (
       !isEnvLibrary &&
         !isEnvStatic &&
         htmlConfigPlugin(
-          path.join(sourcePath, configReactData.htmlTemplate),
+          path.join(basePath, configReactData.htmlTemplate),
           { ...configReactData.htmlEnv, ...configReactData.env },
           isEnvProduction,
         ),
@@ -93,23 +120,27 @@ export default function (
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
       // NODE ENV
       new webpack.EnvironmentPlugin(nodeEnv),
+      new webpack.ProvidePlugin({
+        process: 'process/browser',
+      }),
+      // new webpack.DefinePlugin(nodeEnv),
       // CLEARER
-      isEnvProduction &&
-        new cwp.CleanWebpackPlugin({
-          dry: false,
-          verbose: true,
-          cleanOnceBeforeBuildPatterns: [
-            path.join(basePath, configReactData.outputPath, '/**/*'),
-          ],
-        }),
+      // isEnvProduction &&
+      //   new cwp.CleanWebpackPlugin({
+      //     dry: false,
+      //     verbose: true,
+      //     cleanOnceBeforeBuildPatterns: [
+      //       path.join(basePath, configReactData.outputPath, '/**/*'),
+      //     ],
+      //   }),
       // BUNDLE ANALYSER
-      isEnvProduction &&
-        !isEnvLibrary &&
-        !isEnvStatic &&
-        new BundleAnalyzerPlugin({
-          analyzerMode: 'static',
-          openAnalyzer: false,
-        }),
+      // isEnvProduction &&
+      //   !isEnvLibrary &&
+      //   !isEnvStatic &&
+      //   new BundleAnalyzerPlugin({
+      //     analyzerMode: 'static',
+      //     openAnalyzer: false,
+      //   }),
     ].filter(Boolean),
     // ==== OPTIMIZE ==========================================================================
     optimization: {
@@ -172,5 +203,8 @@ export default function (
     config.devtool = 'cheap-module-source-map';
   }
 
-  return Object.assign({}, config, configReactData.webpack);
+  // ==== CUSTOMIZE WEBPACK =============
+  configReactData.webpack && configReactData.webpack(config);
+
+  return config; // merge(config, configReactData.webpack);
 }

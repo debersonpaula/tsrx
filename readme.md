@@ -1,21 +1,19 @@
 # TSRX
 
-This package replaces TSREX, due to removal of EXREDUX from the packages, giving freedom to choose any state management.
-
 [![Version](https://img.shields.io/npm/v/tsrx.svg)](https://npmjs.org/package/tsrx)
 
 ### <b>T</b>ype<b>S</b>cript + <b>React</b>
 
 This package contains the following modules:
 
-- Typescript > 3.8
-- React > 16.13
-- Jest 25 + Enzyme 3 (for tests)
+- Typescript > 4.3
+- React > 17
+<!-- - Jest 25 + Enzyme 3 (for tests) -->
 
 The builder has the following module bundlers:
 
-- Webpack > 4.43
-- Babel > 7.9
+- Webpack > 5.43
+- Babel > 7.14
 
 ## Install
 
