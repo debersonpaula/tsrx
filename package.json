@@ -18,7 +18,9 @@
     "sb:static": "node dist/bin/tsrx build sandbox/config/react.config.static.js",
     "tsc": "tsc",
     "mfe-app1-start": "node dist/bin/tsrx start micro-frontend/app1/react.config.js",
+    "mfe-app1-build": "node dist/bin/tsrx build micro-frontend/app1/react.config.js",
     "mfe-app2-start": "node dist/bin/tsrx start micro-frontend/app2/react.config.js",
+    "mfe-app2-build": "node dist/bin/tsrx build micro-frontend/app2/react.config.js",
     "mfe-main-start": "node dist/bin/tsrx start micro-frontend/main/react.config.js"
   },
   "bin": {

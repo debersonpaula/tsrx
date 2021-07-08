@@ -1,7 +1,6 @@
 var DefaultConfig = require('../dist/bin/tools').DefaultConfig;
 const { ModuleFederationPlugin } = require('webpack').container;
 const ExternalTemplateRemotesPlugin = require('external-remotes-plugin');
-const path = require('path');
 
 module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
   DefaultConfig({
@@ -10,7 +9,7 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
     // index file
     sourceFile: 'index.ts',
     // output path
-    outputPath: `dist/${appName}`,
+    outputPath: `build/${appName}`,
     // index.html template
     htmlTemplate: `${appPath}/index.html`,
     // port
@@ -20,7 +19,7 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
     // development server
     devServer: {
       open: true,
-      contentBase: path.join(__dirname, 'dist'),
+      contentBase: './build',
     },
     // skip config file
     skipConfigFile: true,
@@ -52,5 +51,7 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
       config.plugins.push(new ExternalTemplateRemotesPlugin());
 
       config.entry = `${appPath}/index`; // <=== to work with federation modules
+
+      // config.output.publicPath = '/dist/'
     },
   });
