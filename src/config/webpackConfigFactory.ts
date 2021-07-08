@@ -49,7 +49,7 @@ export default function (
     // ==== GENERAL ==========================================================================
     mode: webpackEnv,
     context: isEnvLibrary ? basePath : undefined,
-    bail: isEnvProduction, // Stop compilation early in production
+    // bail: isEnvProduction, // Stop compilation early in production
     // ==== ENTRY ============================================================================
     entry: [
       // isEnvDevelopment &&

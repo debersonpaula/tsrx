@@ -2857,6 +2857,13 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
     assign-symbols "^1.0.0"
     is-extendable "^1.0.1"
 
+external-remotes-plugin@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/external-remotes-plugin/-/external-remotes-plugin-1.0.0.tgz#2ad8ecad6cba28f6e0fd7bccf8536aeda1297b20"
+  integrity sha512-19cfGfzmPMXkRNpyqOHgndNB07vjk1G1V7IuyixBw8Z1QTc/IOhINy9TbWzDRPTmj64e3STTI1MJE0gI58p7YA==
+  dependencies:
+    webpack-sources "^2.2.0"
+
 extglob@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/extglob/-/extglob-2.0.4.tgz#ad00fe4dc612a9232e8718711dc5cb5ab0285543"
@@ -5987,7 +5994,7 @@ webpack-merge@^5.7.3:
     clone-deep "^4.0.1"
     wildcard "^2.0.0"
 
-webpack-sources@^2.3.0:
+webpack-sources@^2.2.0, webpack-sources@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-2.3.0.tgz#9ed2de69b25143a4c18847586ad9eccb19278cfa"
   integrity sha512-WyOdtwSvOML1kbgtXbTDnEW0jkJ7hZr/bDByIwszhWd/4XX1A3XMkrbFMsuH4+/MfLlZCUzlAdg4r7jaGKEIgQ==
