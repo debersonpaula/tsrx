@@ -1,10 +1,9 @@
-// tslint:disable: no-eval
 import webpack from 'webpack';
 import path from 'path';
-// import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
 // import * as cwp from 'clean-webpack-plugin';
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import ExternalTemplateRemotesPlugin from 'external-remotes-plugin';
 
 import webpackOutputConfig from './output.config';
 import { babelLoader } from './rules/babelLoader';
@@ -28,6 +27,7 @@ export default function (
   const isEnvProduction = webpackEnv === 'production';
   const isEnvLibrary = configReactData.library;
   const isEnvStatic = configReactData.outputStatic != null;
+  const isFederatedModule = !!configReactData.moduleFederationOptions;
 
   const sourcePath = path.resolve(basePath, configReactData.sourcePath);
   const sourceFile = configReactData.sourceFile;
@@ -36,14 +36,7 @@ export default function (
     isEnvProduction: isEnvProduction.toString(),
     NODE_ENV: webpackEnv,
     CONFIG_ENV: JSON.stringify(configReactData.env),
-    // ...configReactData.nodeEnv,
   };
-  // const nodeEnv = {
-  //   'process.env.isEnvDevelopment': JSON.stringify(isEnvDevelopment),
-  //   'process.env.isEnvProduction': JSON.stringify(isEnvProduction),
-  //   'process.env.NODE_ENV': JSON.stringify(webpackEnv),
-  //   'process.env.CONFIG_ENV': JSON.stringify(configReactData.env),
-  // };
 
   const config: webpack.Configuration = {
     // ==== GENERAL ==========================================================================
@@ -52,10 +45,7 @@ export default function (
     // bail: isEnvProduction, // Stop compilation early in production
     // ==== ENTRY ============================================================================
     entry: [
-      // isEnvDevelopment &&
-      //   `webpack-dev-server/client?http://${configReactData.host}:${configReactData.port}`,
-      // isEnvDevelopment && 'webpack/hot/dev-server',
-      isEnvDevelopment && 'react-hot-loader/patch',
+      isEnvDevelopment && !isFederatedModule && 'react-hot-loader/patch',
       path.join(sourcePath, sourceFile),
     ].filter(Boolean),
     // ==== OUTPUT ===========================================================================
@@ -83,26 +73,19 @@ export default function (
     // ==== RESOLVE ===========================================================================
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
-      // plugins: [new TsConfigPathsPlugin()],
       plugins: [
         new TsconfigPathsPlugin({
           configFile: path.resolve(basePath, './tsconfig.json'),
           extensions: ['.ts', '.tsx', '.js'],
         }),
       ],
-      // alias: configReactData.reactHotLoader
-      //   ? {
-      //       'react-dom': '@hot-loader/react-dom',
-      //     }
-      //   : {},
       alias: {
-        'react-dom': configReactData.reactHotLoader
-          ? '@hot-loader/react-dom'
-          : 'react-dom',
-        // tsrx: path.resolve(basePath, 'dist/bin'),
+        'react-dom':
+          configReactData.reactHotLoader && !isFederatedModule
+            ? '@hot-loader/react-dom'
+            : 'react-dom',
         process: 'process/browser',
       },
-      // plugins: [new AliasBuilderWebpackPlugin()],
       fallback: {},
     },
     // ==== PLUGINS ===========================================================================
@@ -203,8 +186,21 @@ export default function (
     config.devtool = 'cheap-module-source-map';
   }
 
+  // ==== FEDERATED MODULES ==================================================================
+  if (isFederatedModule) {
+    const moduleFederationConfig = configReactData.moduleFederationOptions;
+
+    config.plugins.push(
+      new webpack.container.ModuleFederationPlugin(moduleFederationConfig),
+    );
+
+    if (moduleFederationConfig.remotes) {
+      config.plugins.push(new ExternalTemplateRemotesPlugin());
+    }
+  }
+
   // ==== CUSTOMIZE WEBPACK =============
   configReactData.webpack && configReactData.webpack(config);
 
-  return config; // merge(config, configReactData.webpack);
+  return config;
 }

@@ -1,6 +1,4 @@
-var DefaultConfig = require('../dist/bin/tools').DefaultConfig;
-const { ModuleFederationPlugin } = require('webpack').container;
-const ExternalTemplateRemotesPlugin = require('external-remotes-plugin');
+const { DefaultConfig } = require('../dist/bin/tools');
 
 module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
   DefaultConfig({
@@ -24,34 +22,16 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
     // skip config file
     skipConfigFile: true,
 
-    webpack: (config) => {
-      const moduleFederationConfig = {
-        name: appName,
-        shared: {
-          // react: { singleton: true, eager: true },
-          // 'react-dom': { singleton: true, eager: true },
-          react: { singleton: true },
-          'react-dom': { singleton: true },
-        },
-      };
-
-      if (expose) {
-        moduleFederationConfig.filename = 'remoteEntry.js';
-        moduleFederationConfig.exposes = {
-          './App': `./${appPath}/App`,
-        };
-      }
-
-      if (remotes) {
-        moduleFederationConfig.remotes = remotes;
-        // moduleFederationConfig.remoteType = 'var';
-      }
-
-      config.plugins.push(new ModuleFederationPlugin(moduleFederationConfig));
-      config.plugins.push(new ExternalTemplateRemotesPlugin());
-
-      config.entry = `${appPath}/index`; // <=== to work with federation modules
-
-      // config.output.publicPath = '/dist/'
+    moduleFederationOptions: {
+      name: appName,
+      shared: {
+        react: { singleton: true },
+        'react-dom': { singleton: true },
+      },
+      filename: 'remoteEntry.js',
+      exposes: {
+        './App': `./${appPath}/App`,
+      },
+      remotes: remotes || {},
     },
   });

@@ -1,5 +1,6 @@
 // import type { Config } from '@jest/types';
 import { Configuration as WebpackConfiguration, RuleSetRule } from 'webpack';
+import { ModuleFederationPluginOptions } from './interfaces/ModuleFederationPluginOptions';
 // import { Configuration as WebpackDevConfiguration } from 'webpack-dev-server';
 
 export interface IEnvKeyValues {
@@ -126,14 +127,17 @@ export interface ITSREXConfigBase {
   skipConfigFile: boolean;
 
   /**
-   *
+   * customize the default settings for the loaders
    */
   overrideLoader: {
-    urlLoader?: RuleSetRule;
     babelLoader?: RuleSetRule;
     styleLoader?: RuleSetRule;
-    fileLoader?: RuleSetRule;
   };
+
+  /**
+   * option to enable ModuleFederationPluginOptions
+   */
+  moduleFederationOptions: ModuleFederationPluginOptions;
 }
 
 export type ITSREXConfig = Partial<ITSREXConfigBase>;
