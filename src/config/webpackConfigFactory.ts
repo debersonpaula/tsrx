@@ -126,24 +126,24 @@ export default function (
       //   }),
     ].filter(Boolean),
     // ==== OPTIMIZE ==========================================================================
-    optimization: {
-      splitChunks:
-        isEnvLibrary || isEnvStatic
-          ? undefined
-          : {
-              cacheGroups: {
-                commons: {
-                  test: /[\\/]node_modules[\\/]/,
-                  name: 'vendor',
-                  chunks: 'all',
-                },
-              },
-            },
-      minimize: isEnvProduction,
-      minimizer: [terserConfigPlugin()],
-      usedExports: isEnvProduction,
-      sideEffects: isEnvProduction,
-    },
+    // optimization: {
+    //   splitChunks:
+    //     isEnvLibrary || isEnvStatic
+    //       ? undefined
+    //       : {
+    //           cacheGroups: {
+    //             commons: {
+    //               test: /[\\/]node_modules[\\/]/,
+    //               name: 'vendor',
+    //               chunks: 'all',
+    //             },
+    //           },
+    //         },
+    //   minimize: isEnvProduction,
+    //   minimizer: [terserConfigPlugin()],
+    //   usedExports: isEnvProduction,
+    //   sideEffects: isEnvProduction,
+    // },
   };
   // ==== LIBRARY ==========================================================================
   if (isEnvLibrary) {
