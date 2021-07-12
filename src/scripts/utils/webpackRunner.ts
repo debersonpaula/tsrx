@@ -43,13 +43,8 @@ export default function (compiler: webpack.Compiler, afterBuild?: () => void) {
           '===========================================================',
         );
         logger.warning('BUILD WARNINGS: ');
-        // logger.warning(info.warnings.toString());
         info.warnings.forEach((item) => {
-          logger.warning(item.message, '\n', {
-            module: item.moduleName,
-            location: item.loc,
-            trace: item.moduleTrace.map((c) => c.moduleId),
-          });
+          logger.warning(item.message);
         });
         logger.warning(
           '===========================================================',

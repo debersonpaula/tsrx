@@ -77,6 +77,11 @@ module.exports = {
     'webpack-bundle-analyzer',
     'webpack-dev-server',
   ]),
+
+  // ==== OPTIMIZE ==========================================================================
+  optimization: {
+    minimize: false,
+  },
 };
 
 function generateExternals(list) {
