@@ -5,6 +5,8 @@ import Config from './Config';
 import { EnumCheck } from './EnumCheck';
 import { ReactComponent as ReactLogoIcon } from './assets/react-logo.svg';
 
+import Image from './assets/image.jpg';
+
 const SampleModule = require('./SampleModule.mjs');
 const SampleFile = require('./SampleFile.js');
 
@@ -42,6 +44,12 @@ export class App extends React.Component {
 
         <div>
           Logo SVG <ReactLogoIcon />
+        </div>
+
+        <hr />
+
+        <div>
+          <img src={Image} />
         </div>
       </div>
     );
