@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
 // import * as cwp from 'clean-webpack-plugin';
-// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import ExternalTemplateRemotesPlugin from 'external-remotes-plugin';
 
@@ -55,8 +55,6 @@ export default function (
       // makes missing exports an error instead of warning
       strictExportPresence: true,
       rules: [
-        // Disable require.ensure as it's not a standard language feature.
-        // { parser: { requireEnsure: false } },
         // REPLACE TSLINT TO ESLINT
         // tsLintLoader(sourcePath),
 
@@ -117,13 +115,13 @@ export default function (
       //     ],
       //   }),
       // BUNDLE ANALYSER
-      // isEnvProduction &&
-      //   !isEnvLibrary &&
-      //   !isEnvStatic &&
-      //   new BundleAnalyzerPlugin({
-      //     analyzerMode: 'static',
-      //     openAnalyzer: false,
-      //   }),
+      isEnvProduction &&
+        !isEnvLibrary &&
+        !isEnvStatic &&
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          openAnalyzer: false,
+        }),
     ].filter(Boolean),
     // ==== OPTIMIZE ==========================================================================
     // optimization: {

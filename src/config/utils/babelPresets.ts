@@ -15,7 +15,6 @@ export const babelPresets = (env: EnvType) => {
         },
       },
     ],
-    (isEnvProduction || isEnvDevelopment) && '@babel/env',
     '@babel/react',
     '@babel/preset-typescript',
   ].filter(Boolean);

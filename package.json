@@ -1,7 +1,7 @@
 {
   "name": "tsrx",
   "description": "Typescript + React",
-  "version": "1.0.0-beta.11",
+  "version": "1.0.0-beta.12",
   "main": "index.js",
   "scripts": {
     "build": "npm run clear && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
@@ -52,6 +52,7 @@
     "typescript": "4.3.5",
     "url-loader": "4.1.1",
     "webpack": "5.43.0",
+    "webpack-bundle-analyzer": "^4.4.2",
     "webpack-dev-server": "3.11.2"
   },
   "devDependencies": {
