@@ -1,7 +1,7 @@
 {
   "name": "tsrx",
   "description": "Typescript + React",
-  "version": "1.0.0-beta.15",
+  "version": "1.0.0-beta.16",
   "main": "index.js",
   "scripts": {
     "build": "npm run clear && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
@@ -18,10 +18,10 @@
     "sb:static": "node dist/bin/tsrx build sandbox/config/react.config.static.js",
     "tsc": "tsc",
     "mfe-app1-start": "node dist/bin/tsrx start micro-frontend/app1/react.config.js",
-    "mfe-app1-build": "node dist/bin/tsrx build micro-frontend/app1/react.config.js",
+    "mfe-app1-build": "node dist/bin/tsrx expose micro-frontend/app1/react.config.js",
     "mfe-app2-start": "node dist/bin/tsrx start micro-frontend/app2/react.config.js",
-    "mfe-app2-build": "node dist/bin/tsrx build micro-frontend/app2/react.config.js",
-    "mfe-apps-build": "npm run mfe-app1-build && npm run mfe-app2-build",
+    "mfe-app2-build": "node dist/bin/tsrx expose micro-frontend/app2/react.config.js",
+    "mfe-apps-serve": "npm run mfe-app1-build && npm run mfe-app2-build && serve ./build -p 5000",
     "mfe-main-start": "node dist/bin/tsrx start micro-frontend/main/react.config.js"
   },
   "bin": {
@@ -65,6 +65,7 @@
     "eslint-plugin-react": "7.24.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "serve": "^12.0.0",
     "webpack-cli": "4.7.2"
   },
   "peerDependencies": {

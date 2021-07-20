@@ -12,22 +12,27 @@ import { fileLoader } from './rules/fileLoader';
 import { imageLoader } from './rules/imageLoader';
 import { styleLoader } from './rules/styleLoader';
 import { htmlConfigPlugin } from './plugins/htmlConfigPlugin';
-import { terserConfigPlugin } from './plugins/terserConfigPlugin';
+// import { terserConfigPlugin } from './plugins/terserConfigPlugin';
 import { ITSREXConfig } from '../tools/ITSREXConfig';
 import merge from './helpers/merge';
 import { mjsLoader } from './rules/mjsLoader';
+import { WebpackMode } from '../tools/interfaces/WebpackMode';
 
 export default function (
-  webpackEnv: 'production' | 'development',
+  env: WebpackMode,
   basePath: string,
   configReactData: ITSREXConfig,
 ): webpack.Configuration {
+  // Get Enviroment
+  const webpackEnv = env === 'development' ? 'development' : 'production';
+
   // Environment setup
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
   const isEnvLibrary = configReactData.library;
   const isEnvStatic = configReactData.outputStatic != null;
   const isFederatedModule = !!configReactData.moduleFederationOptions;
+  const isExposedModule = env === 'production-expose';
 
   const sourcePath = path.resolve(basePath, configReactData.sourcePath);
   const sourceFile = configReactData.sourceFile;
@@ -44,10 +49,12 @@ export default function (
     context: isEnvLibrary ? basePath : undefined,
     // bail: isEnvProduction, // Stop compilation early in production
     // ==== ENTRY ============================================================================
-    entry: [
-      isEnvDevelopment && !isFederatedModule && 'react-hot-loader/patch',
-      path.join(sourcePath, sourceFile),
-    ].filter(Boolean),
+    entry: isExposedModule
+      ? [path.join(__dirname, 'tools/samples/blank-project.js')]
+      : [
+          isEnvDevelopment && !isFederatedModule && 'react-hot-loader/patch',
+          path.join(sourcePath, sourceFile),
+        ].filter(Boolean),
     // ==== OUTPUT ===========================================================================
     output: webpackOutputConfig(webpackEnv, basePath, configReactData),
     // ==== MODULE ===========================================================================
@@ -89,7 +96,8 @@ export default function (
     // ==== PLUGINS ===========================================================================
     plugins: [
       // HTML
-      !isEnvLibrary &&
+      !isExposedModule &&
+        !isEnvLibrary &&
         !isEnvStatic &&
         htmlConfigPlugin(
           path.join(basePath, configReactData.htmlTemplate),
@@ -124,24 +132,24 @@ export default function (
         }),
     ].filter(Boolean),
     // ==== OPTIMIZE ==========================================================================
-    // optimization: {
-    //   splitChunks:
-    //     isEnvLibrary || isEnvStatic
-    //       ? undefined
-    //       : {
-    //           cacheGroups: {
-    //             commons: {
-    //               test: /[\\/]node_modules[\\/]/,
-    //               name: 'vendor',
-    //               chunks: 'all',
-    //             },
-    //           },
-    //         },
-    //   minimize: isEnvProduction,
-    //   minimizer: [terserConfigPlugin()],
-    //   usedExports: isEnvProduction,
-    //   sideEffects: isEnvProduction,
-    // },
+    optimization: {
+      // splitChunks:
+      //   isEnvLibrary || isEnvStatic
+      //     ? undefined
+      //     : {
+      //         cacheGroups: {
+      //           commons: {
+      //             test: /[\\/]node_modules[\\/]/,
+      //             name: 'vendor',
+      //             chunks: 'all',
+      //           },
+      //         },
+      //       },
+      minimize: isEnvProduction,
+      // minimizer: [terserConfigPlugin()],
+      usedExports: isEnvProduction,
+      sideEffects: isEnvProduction,
+    },
   };
   // ==== LIBRARY ==========================================================================
   if (isEnvLibrary) {

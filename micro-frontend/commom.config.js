@@ -29,9 +29,11 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
         'react-dom': { singleton: true },
       },
       filename: 'remoteEntry.js',
-      exposes: {
-        './App': `./${appPath}/App`,
-      },
+      exposes: expose
+        ? {
+            './App': `./${appPath}/App`,
+          }
+        : {},
       remotes: remotes || {},
     },
   });

@@ -1,6 +1,7 @@
 // import type { Config } from '@jest/types';
 import { Configuration as WebpackConfiguration, RuleSetRule } from 'webpack';
 import { ModuleFederationPluginOptions } from './interfaces/ModuleFederationPluginOptions';
+import { WebpackMode } from './interfaces/WebpackMode';
 // import { Configuration as WebpackDevConfiguration } from 'webpack-dev-server';
 
 export interface IEnvKeyValues {
@@ -114,7 +115,7 @@ export interface ITSREXConfigBase {
    */
   webpack: (
     config: WebpackConfiguration,
-    env: 'production' | 'development',
+    env: WebpackMode,
   ) => void;
 
   /**
