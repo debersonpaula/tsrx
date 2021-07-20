@@ -198,7 +198,7 @@ export default function (
   }
 
   // ==== CUSTOMIZE WEBPACK =============
-  configReactData.webpack && configReactData.webpack(config);
+  configReactData.webpack && configReactData.webpack(config, webpackEnv);
 
   return config;
 }

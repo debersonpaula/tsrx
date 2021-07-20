@@ -112,7 +112,10 @@ export interface ITSREXConfigBase {
    * any properties define in this property
    * will override TSREX config
    */
-  webpack: (config: WebpackConfiguration) => void;
+  webpack: (
+    config: WebpackConfiguration,
+    env: 'production' | 'development',
+  ) => void;
 
   /**
    * specify de Config file
