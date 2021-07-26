@@ -24,10 +24,7 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
 
     moduleFederationOptions: {
       name: appName,
-      shared: {
-        react: { singleton: true },
-        'react-dom': { singleton: true },
-      },
+      shared: ['react', 'react-dom'],
       filename: 'remoteEntry.js',
       exposes: expose
         ? {
