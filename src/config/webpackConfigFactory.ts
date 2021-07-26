@@ -52,7 +52,10 @@ export default function (
     entry: isExposedModule
       ? [path.join(__dirname, 'tools/samples/blank-project.js')]
       : [
-          isEnvDevelopment && !isFederatedModule && 'react-hot-loader/patch',
+          // isEnvDevelopment && !isFederatedModule && 'react-hot-loader/patch',
+          isEnvDevelopment &&
+            configReactData.reactHotLoader &&
+            'react-hot-loader/patch',
           path.join(sourcePath, sourceFile),
         ].filter(Boolean),
     // ==== OUTPUT ===========================================================================
@@ -86,7 +89,8 @@ export default function (
       ],
       alias: {
         'react-dom':
-          configReactData.reactHotLoader && !isFederatedModule
+          // configReactData.reactHotLoader && !isFederatedModule
+          configReactData.reactHotLoader
             ? '@hot-loader/react-dom'
             : 'react-dom',
         process: 'process/browser',

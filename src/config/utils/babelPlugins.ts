@@ -18,6 +18,6 @@ export const babelPlugins = (env: EnvType, reactHotLoader: boolean) => {
         },
       },
     ],
-    isEnvDevelopment && 'react-hot-loader/babel',
+    isEnvDevelopment && reactHotLoader && 'react-hot-loader/babel',
   ].filter(Boolean);
 };

@@ -19,12 +19,17 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
       open: true,
       contentBase: './build',
     },
+    reactHotLoader: true,
     // skip config file
     skipConfigFile: true,
 
     moduleFederationOptions: {
       name: appName,
-      shared: ['react', 'react-dom'],
+      // shared: ['react', 'react-dom'],
+      shared: {
+        react: { singleton: true, eager: true },
+        'react-dom': { singleton: true, eager: true },
+      },
       filename: 'remoteEntry.js',
       exposes: expose
         ? {
