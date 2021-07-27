@@ -76,6 +76,7 @@ module.exports = {
     'webpack',
     'webpack-bundle-analyzer',
     'webpack-dev-server',
+    '@pmmmwh/react-refresh-webpack-plugin',
   ]),
 
   // ==== OPTIMIZE ==========================================================================

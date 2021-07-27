@@ -1,17 +1,7 @@
 import webpack from 'webpack';
 import logger from '../../tools/logger';
-import configWebpack from '../../config/webpackConfigFactory';
-import { ITSREXConfig } from '../../tools/ITSREXConfig';
-import { WebpackMode } from '../../tools/interfaces/WebpackMode';
 
-export default function (
-  configReactData: ITSREXConfig,
-  basePath: string,
-  webpackEnv: WebpackMode,
-): webpack.Compiler {
-  // webpack config
-  const config = configWebpack(webpackEnv, basePath, configReactData);
-
+export default function (config: webpack.Configuration): webpack.Compiler {
   // create compiler
   let compiler: webpack.Compiler;
   try {

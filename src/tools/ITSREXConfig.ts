@@ -94,11 +94,6 @@ export interface ITSREXConfigBase {
   outputStatic: string;
 
   /**
-   * Indicate to use react-hot-loader plugin
-   */
-  reactHotLoader: boolean;
-
-  /**
    * Jest Test Customization
    */
   // jest: Config.Argv;
@@ -113,10 +108,7 @@ export interface ITSREXConfigBase {
    * any properties define in this property
    * will override TSREX config
    */
-  webpack: (
-    config: WebpackConfiguration,
-    env: WebpackMode,
-  ) => void;
+  webpack: (config: WebpackConfiguration, env: WebpackMode) => void;
 
   /**
    * specify de Config file

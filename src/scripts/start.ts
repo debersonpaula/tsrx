@@ -1,9 +1,9 @@
 import WebpackDevServer from 'webpack-dev-server';
 import loadConfigFile from './utils/loadConfigFile';
 import configDevServer from '../config/webpackDevServer.config';
-import logger from '../tools/logger';
 import { IScriptCallback } from './utils/IScriptCallback';
 import webpackCompiler from './utils/webpackCompiler';
+import webpackConfigFactory from '../config/webpackConfigFactory';
 
 const script: IScriptCallback = (args: string[], basePath: string) => {
   return new Promise<void>((resolve, reject) => {
@@ -13,8 +13,16 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
     // load configutation react data
     const configReactData = loadConfigFile(configFile);
 
+    // webpack config
+    const config = webpackConfigFactory(
+      'development',
+      basePath,
+      configReactData,
+    );
+
     // webpack compiler
-    const compiler = webpackCompiler(configReactData, basePath, 'development');
+    const compiler = webpackCompiler(config);
+
     if (!compiler) {
       return reject();
     }
@@ -25,12 +33,13 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
       false,
       configReactData.devServer,
     );
+    WebpackDevServer.addDevServerEntrypoints(config, cfgdev);
     const devServer = new WebpackDevServer(compiler, cfgdev);
     const port = configReactData.port;
     const hostname = configReactData.host;
 
     // start web dev server
-    devServer.listen(port, hostname, (error) => {
+    devServer.listen(port, hostname, (error: any) => {
       if (error) {
         return reject(error);
       }

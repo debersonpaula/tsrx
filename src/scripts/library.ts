@@ -6,6 +6,7 @@ import { IScriptCallback } from './utils/IScriptCallback';
 import webpackCompiler from './utils/webpackCompiler';
 import webpackRunner from './utils/webpackRunner';
 import envConfigValidator from './utils/envConfigValidator';
+import webpackConfigFactory from '../config/webpackConfigFactory';
 
 const script: IScriptCallback = (args: string[], basePath: string) => {
   // get config filename
@@ -14,8 +15,12 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
   // load configutation react data
   const configReactData = loadConfigFile(configFile);
 
+  // webpack config
+  const config = webpackConfigFactory('production', basePath, configReactData);
+
   // webpack compiler
-  const compiler = webpackCompiler(configReactData, basePath, 'production');
+  const compiler = webpackCompiler(config);
+
   if (!compiler) {
     return Promise.reject();
   }

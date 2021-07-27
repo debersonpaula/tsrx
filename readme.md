@@ -48,7 +48,7 @@ Create a js file as example below to setup the scrips command:
 Ex.: _react.config.js_
 
 ```js
-var DefaultConfig = require('tsrx/tools').DefaultConfig;
+const { DefaultConfig } = require('tsrx/tools');
 
 module.exports = DefaultConfig({
   // source of files
@@ -62,14 +62,12 @@ module.exports = DefaultConfig({
   // will be set in webpack-dev-server
   host: 'localhost',
   // all enviroments to be set in process.env
-  nodeEnv: {
+  env: {
     commentsExample: 'Comment from Node Enviroments',
     booleanValueExample: true,
     numericValueExample: 37,
-  },
-  // all enviroments to be set in HTMLWebpackPlugin
-  // available in HTML thru <%= htmlWebpackPlugin.options.propertyName %>
-  htmlEnv: {
+    // all enviroments to be set in HTMLWebpackPlugin
+    // available in HTML thru <%= htmlWebpackPlugin.options.propertyName %>
     htmlComments: 'Comment from HTML Enviroment',
   },
 });
@@ -125,13 +123,12 @@ module.exports = DefaultConfig({
 
 ## DevServer customization
 
-In case if is necessary to customize webpack-dev-server options, just include "__devServer__" in your _react.config.test.js_:
+In case if is necessary to customize webpack-dev-server options, just include "**devServer**" in your _react.config.test.js_:
 
 ```js
 module.exports = DefaultConfig({
   devServer: {
     open: true,
-    hot: true,
     publicPath: '/',
     contentBase: path.join(__dirname, 'dist'),
   },
@@ -142,40 +139,13 @@ module.exports = DefaultConfig({
 ## Webpack options customization
 
 Any properties defined in this property will override TSREX config:
+
 ```js
 module.exports = DefaultConfig({
   webpack: {
     // insert your config here
-  }
+  },
 });
-```
-
-## Enable React Hot Loader
-
-This utility, enables the plugin __react-hot-loader__, that increments your application without losing the current state.
-
-To use this utility, just enable it in your _react.config.test.js_:
-```js
-module.exports = DefaultConfig({
-  reactHotLoader: true,
-  ...
-});
-```
-
-And wrap the main app with the _reactHot_ function:
-```tsx
-import * as React from 'react';
-import { reactHot } from 'tsrx/tools';
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>Component Hot Reload Test</div>
-    );
-  }
-}
-
-export default reactHot(module, App);
 ```
 
 ## Sample Project
