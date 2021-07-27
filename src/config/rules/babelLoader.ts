@@ -3,10 +3,7 @@ import { EnvType } from '../interfaces/envType';
 import { RuleSetRule } from 'webpack';
 import { babelPlugins } from '../utils/babelPlugins';
 
-export const babelLoader = (
-  env: EnvType,
-  reactHotLoader: boolean,
-): RuleSetRule => ({
+export const babelLoader = (env: EnvType): RuleSetRule => ({
   test: /\.(ts|tsx|js|mjs|jsx)$/,
   loader: 'babel-loader',
   exclude: /node_modules/,
@@ -14,6 +11,6 @@ export const babelLoader = (
     babelrc: false,
     configFile: false,
     presets: babelPresets(env),
-    plugins: babelPlugins(env, reactHotLoader),
+    plugins: babelPlugins(env),
   },
 });

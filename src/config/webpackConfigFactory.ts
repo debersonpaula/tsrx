@@ -4,6 +4,7 @@ import path from 'path';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import ExternalTemplateRemotesPlugin from 'external-remotes-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 import webpackOutputConfig from './output.config';
 import { babelLoader } from './rules/babelLoader';
@@ -53,9 +54,9 @@ export default function (
       ? [path.join(__dirname, 'tools/samples/blank-project.js')]
       : [
           // isEnvDevelopment && !isFederatedModule && 'react-hot-loader/patch',
-          isEnvDevelopment &&
-            configReactData.reactHotLoader &&
-            'react-hot-loader/patch',
+          // isEnvDevelopment &&
+          //   configReactData.reactHotLoader &&
+          //   'react-hot-loader/patch',
           path.join(sourcePath, sourceFile),
         ].filter(Boolean),
     // ==== OUTPUT ===========================================================================
@@ -69,7 +70,7 @@ export default function (
         // tsLintLoader(sourcePath),
 
         merge(
-          babelLoader(webpackEnv, configReactData.reactHotLoader),
+          babelLoader(webpackEnv),
           configReactData.overrideLoader.babelLoader,
         ),
         merge(styleLoader(), configReactData.overrideLoader.styleLoader),
@@ -88,11 +89,6 @@ export default function (
         }),
       ],
       alias: {
-        'react-dom':
-          // configReactData.reactHotLoader && !isFederatedModule
-          configReactData.reactHotLoader
-            ? '@hot-loader/react-dom'
-            : 'react-dom',
         process: 'process/browser',
       },
       fallback: {},
@@ -111,6 +107,7 @@ export default function (
 
       // HOT RELOAD
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
+      isEnvDevelopment && new ReactRefreshWebpackPlugin(),
       // NODE ENV
       new webpack.EnvironmentPlugin(nodeEnv),
       new webpack.ProvidePlugin({

@@ -11,6 +11,9 @@ export const htmlConfigPlugin = (
       {
         template: templateFileName,
         inject: true,
+        // use chunks = main to get rid of errors
+        // when using HMR + FederationModules
+        chunks: ['main'],
         ...htmlEnv,
       },
       minify

@@ -1,9 +1,7 @@
 import { EnvType } from '../interfaces/envType';
 
-export const babelPlugins = (env: EnvType, reactHotLoader: boolean) => {
+export const babelPlugins = (env: EnvType) => {
   const isEnvDevelopment = env === 'development';
-  // const isEnvProduction = env === 'production';
-  // const isEnvTest = env === 'test';
 
   return [
     '@babel/plugin-proposal-class-properties',
@@ -18,6 +16,6 @@ export const babelPlugins = (env: EnvType, reactHotLoader: boolean) => {
         },
       },
     ],
-    isEnvDevelopment && reactHotLoader && 'react-hot-loader/babel',
+    isEnvDevelopment && 'react-refresh/babel',
   ].filter(Boolean);
 };
