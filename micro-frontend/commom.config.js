@@ -16,10 +16,8 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
     host: 'localhost',
     // development server
     devServer: {
-      open: true,
-      contentBase: './build',
+      open: false,
     },
-    reactHotLoader: true,
     // skip config file
     skipConfigFile: true,
 
