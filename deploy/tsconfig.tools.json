@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["../src/tools/**/*"],
+  "include": ["../src/tools/**/*", "../src/global.d.ts"],
   "compilerOptions": {
     "outDir": "../dist/bin/tools",
     "moduleResolution": "node",

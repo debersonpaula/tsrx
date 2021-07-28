@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 export function RemoteComponent({
   name,
@@ -25,21 +24,32 @@ export function RemoteComponent({
    */
   props?: any;
 }) {
-  const divEl = React.useRef(null);
+  const component = useRemoteComponent(url, entry, name);
+  return <div id={name}>{component && component(props)}</div>;
+}
+
+function useRemoteComponent(url: string, entry: string, name: string) {
+  const [component, setComponent] =
+    React.useState<React.FunctionComponent>(null);
+
   React.useEffect(() => {
     load(url)
       .then(async () => {
+        await __webpack_init_sharing__('default');
+
         const container = window[name];
+        await container.init(__webpack_share_scopes__.default);
+
         const factoryFn = await container.get(entry);
         const module = factoryFn();
-        const el = divEl.current;
-        ReactDOM.render(module.default(props), el);
+        setComponent(module.default);
       })
       .catch((err) => {
         console.error('RemoteComponent load error', err);
       });
   }, []);
-  return <div id={name} ref={divEl}></div>;
+
+  return component;
 }
 
 function load(url: string): Promise<any> {

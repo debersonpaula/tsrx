@@ -16,7 +16,7 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
     host: 'localhost',
     // development server
     devServer: {
-      open: false,
+      open: true,
     },
     // skip config file
     skipConfigFile: true,
