@@ -1,6 +1,6 @@
 import React from 'react';
 
-const App = () => {
+const App = ({ label }: { label?: string }) => {
   return (
     <div
       style={{
@@ -11,6 +11,7 @@ const App = () => {
       }}
     >
       <h1>App 1</h1>
+      {label && <p>{label}</p>}
     </div>
   );
 };
