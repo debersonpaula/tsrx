@@ -9,7 +9,7 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import webpackOutputConfig from './output.config';
 import { babelLoader } from './rules/babelLoader';
 // import { tsLintLoader } from './rules/tsLintLoader';
-import { fileLoader } from './rules/fileLoader';
+import { fontLoader } from './rules/fontLoader';
 import { imageLoader } from './rules/imageLoader';
 import { styleLoader } from './rules/styleLoader';
 import { htmlConfigPlugin } from './plugins/htmlConfigPlugin';
@@ -62,15 +62,11 @@ export default function (
       rules: [
         // REPLACE TSLINT TO ESLINT
         // tsLintLoader(sourcePath),
-
-        merge(
-          babelLoader(webpackEnv),
-          configReactData.overrideLoader.babelLoader,
-        ),
-        merge(styleLoader(), configReactData.overrideLoader.styleLoader),
+        configReactData.overrideLoader.babelLoader || babelLoader(webpackEnv),
+        configReactData.overrideLoader.styleLoader || styleLoader(),
         mjsLoader(),
         imageLoader(),
-        fileLoader(), // must be the last
+        fontLoader(),
       ],
     },
     // ==== RESOLVE ===========================================================================
