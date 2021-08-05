@@ -18,6 +18,7 @@ import { ITSREXConfig } from '../tools/ITSREXConfig';
 import merge from './helpers/merge';
 import { mjsLoader } from './rules/mjsLoader';
 import { WebpackMode } from '../tools/interfaces/WebpackMode';
+import { svgLoader } from './rules/svgLoader';
 
 export default function (
   env: WebpackMode,
@@ -67,6 +68,7 @@ export default function (
         mjsLoader(),
         imageLoader(),
         fontLoader(),
+        svgLoader(),
       ],
     },
     // ==== RESOLVE ===========================================================================

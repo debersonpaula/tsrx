@@ -3,13 +3,20 @@ import './style.css';
 import Config from './Config';
 
 import { EnumCheck } from './EnumCheck';
-import { ReactComponent as ReactLogoIcon } from './assets/react-logo.svg';
+import ReactLogoIcon from './assets/react-logo.svg';
 
 import Image from './assets/image.jpg';
 
 const SampleModule = require('./SampleModule.mjs');
 const SampleFile = require('./SampleFile.js');
 
+const decorator = (): ClassDecorator => {
+  return (target) => {
+    target.prototype.method = () => 'From Decorator';
+  };
+};
+
+@decorator()
 export class App extends React.Component {
   render() {
     const check = EnumCheck.TypeA;
@@ -42,6 +49,10 @@ export class App extends React.Component {
 
         <hr />
 
+        <div>Testing decorator = {this.method()}</div>
+
+        <hr />
+
         <div>
           Logo SVG <ReactLogoIcon />
         </div>
@@ -53,5 +64,9 @@ export class App extends React.Component {
         </div>
       </div>
     );
+  }
+
+  method() {
+    return 'From Component';
   }
 }

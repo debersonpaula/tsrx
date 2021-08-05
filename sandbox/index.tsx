@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HotApp from './HotApp';
+import { App } from './App';
 
 function renderToDOM() {
   const root = document.getElementById('app');
-  ReactDOM.render(<HotApp />, root);
+  ReactDOM.render(<App />, root);
 }
 renderToDOM();
 export { renderToDOM };
