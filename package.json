@@ -1,14 +1,9 @@
 {
   "name": "tsrx",
   "description": "Typescript + React",
-  "version": "1.1.0-beta.3",
+  "version": "1.1.0-beta.5",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clear && npm run build:source && npm run build:binary && npm run build:tools && node ./deploy/post-build.js",
-    "build:source": "tsc -p deploy/tsconfig.source.json",
-    "build:binary": "webpack --config ./deploy/webpack.config.deploy.js",
-    "build:tools": "tsc -d -p deploy/tsconfig.tools.json",
-    "clear": "rm -rf ./dist",
     "deploy": "npm run build && cd dist/bin && npm publish",
     "deploy:next": "npm run build && cd dist/bin && npm publish --tag next",
     "sb:start": "node dist/bin/tsrx start sandbox/config/react.config.js",
@@ -62,6 +57,7 @@
     "@typescript-eslint/eslint-plugin": "4.28.2",
     "@typescript-eslint/parser": "4.28.2",
     "deepmerge": "4.2.2",
+    "esbuild": "0.12.19",
     "eslint": "7.30.0",
     "eslint-plugin-react": "7.24.0",
     "react": "17.0.2",

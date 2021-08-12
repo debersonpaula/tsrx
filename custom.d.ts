@@ -1,6 +1,10 @@
+/// <reference types="node" />
+/// <reference types="react" />
+/// <reference types="react-dom" />
+
 declare module '*.svg' {
-  export const ReactComponent: any;
-  export default ReactComponent;
+  const src: React.FC<React.SVGProps<SVGSVGElement>>;
+  export default src;
 }
 
 declare module '*.bmp' {
@@ -32,3 +36,11 @@ declare module '*.woff' {
   const src: string;
   export default src;
 }
+
+declare function __non_webpack_require__(filename: string): any;
+
+declare function __webpack_init_sharing__(env: string): void;
+
+declare const __webpack_share_scopes__: {
+  default: any;
+};
