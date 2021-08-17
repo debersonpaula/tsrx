@@ -59,5 +59,5 @@ module.exports = DefaultConfig({
 
   skipConfigFile: false,
 
-  configFile: 'Config.ts',
+  configFile: 'samples/Config.ts',
 });
