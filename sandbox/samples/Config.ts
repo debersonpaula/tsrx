@@ -1,4 +1,4 @@
-import EnvironmentConfigurator from 'tsrx/tools/EnvironmentConfigurator';
+import { EnvironmentConfigurator } from 'tsrx/tools';
 
 class Config {
   ParamAny: any = null;
