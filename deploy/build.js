@@ -11,7 +11,9 @@ require('esbuild')
     minify: true,
     outfile: outpuFile,
     external: [
+      '@pmmmwh/react-refresh-webpack-plugin',
       'html-webpack-plugin',
+      'jest',
       'react',
       'react-dom',
       'terser-webpack-plugin',
@@ -20,7 +22,8 @@ require('esbuild')
       'webpack',
       'webpack-bundle-analyzer',
       'webpack-dev-server',
-      '@pmmmwh/react-refresh-webpack-plugin',
+      'whatwg-fetch',
+      './addons/*',
     ],
   })
   .catch(() => process.exit(1));

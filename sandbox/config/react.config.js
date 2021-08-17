@@ -37,8 +37,6 @@ module.exports = DefaultConfig({
     ParamBoolean2: true,
     ParamObject: { label: 'Label from env', value: 'Value from env' },
   },
-  // enable React Hot Loader
-  reactHotLoader: true,
 
   jest: {
     coverageThreshold: {
@@ -53,7 +51,7 @@ module.exports = DefaultConfig({
   },
 
   devServer: {
-    open: false,
+    open: true,
     hot: true,
   },
 

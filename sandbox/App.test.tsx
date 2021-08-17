@@ -1,17 +1,22 @@
-import * as React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import React from 'react';
 import { App } from './App';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
-describe('App', () => {
-  let rendered: ReactWrapper;
+test('testing ConfigApp', () => {
+  render(<App />);
 
-  afterEach(() => {
-    rendered.unmount();
-  });
-  // -------------------------------------------------------
-  it('should match snapshot', () => {
-    rendered = mount(<App />);
-    expect(rendered).toMatchSnapshot();
-  });
-  // -------------------------------------------------------
+  expect(screen.getByTestId('config-number')).toHaveTextContent(
+    'ParamNumber = 7',
+  );
+
+  expect(screen.getByTestId('config-text')).toHaveTextContent(
+    'ParamText = Text from env',
+  );
+});
+
+test('testing DecoratorApp', () => {
+  render(<App />);
+
+  expect(screen.getByTestId('decorator')).toHaveTextContent('From Decorator');
 });

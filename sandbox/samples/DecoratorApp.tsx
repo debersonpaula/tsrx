@@ -12,7 +12,7 @@ export class DecoratorApp extends React.Component {
     return (
       <div>
         <h4>Testing decorator</h4>
-        <div>{this.method()}</div>
+        <div data-testid="decorator">{this.method()}</div>
       </div>
     );
   }

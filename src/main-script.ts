@@ -3,7 +3,7 @@ import scriptStart from './scripts/start';
 import scriptBuild from './scripts/build';
 import scriptExpose from './scripts/expose';
 // import scriptLibrary from './scripts/library';
-// import scriptTest from './scripts/test';
+import scriptTest from './scripts/test';
 import logger from './tools/logger';
 
 // Makes the script crash on unhandled rejections
@@ -21,7 +21,7 @@ const scripts: IScripts = {
   build: scriptBuild,
   expose: scriptExpose,
   // library: scriptLibrary,
-  // test: scriptTest,
+  test: scriptTest,
 };
 
 const scriptHandler = scripts[scriptName];

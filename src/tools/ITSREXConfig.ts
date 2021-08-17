@@ -1,4 +1,4 @@
-// import type { Config } from '@jest/types';
+import type { Config } from '@jest/types';
 import { Configuration as WebpackConfiguration, RuleSetRule } from 'webpack';
 import { ModuleFederationPluginOptions } from './interfaces/ModuleFederationPluginOptions';
 import { WebpackMode } from './interfaces/WebpackMode';
@@ -44,7 +44,7 @@ export interface ITSREXConfigBase {
    * process.env
    *
    * @deprecated
-   * The property "htmlEnv" in config will be deprecated and removed.
+   * The property "htmlEnv" in config was removed.
    * Use "env" instead and adopt new config system
    */
   nodeEnv: IEnvKeyValues;
@@ -54,7 +54,7 @@ export interface ITSREXConfigBase {
    * available in HTML thru <%= htmlWebpackPlugin.options.propertyName
    *
    * @deprecated
-   * The property "nodeEnv" in config will be deprecated and removed.
+   * The property "nodeEnv" in config was removed.
    * Use "env" instead.
    */
   htmlEnv: IEnvKeyValues;
@@ -96,7 +96,7 @@ export interface ITSREXConfigBase {
   /**
    * Jest Test Customization
    */
-  // jest: Config.Argv;
+  jest: Config.Argv;
 
   /**
    * Webpack Dev Server Customization
