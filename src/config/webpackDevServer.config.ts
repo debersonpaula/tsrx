@@ -18,9 +18,9 @@ export default function(
     hot: true,
     // It is important to tell WebpackDevServer to use the same "root" path
     // as we specified in the config. In development, we always serve from /.
-    publicPath: '/',
+    // publicPath: '/',
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
-    overlay: false,
+    // overlay: false,
     ...override,
   };
 }
