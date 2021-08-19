@@ -36,4 +36,5 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
         : {},
       remotes: remotes || {},
     },
+    enablePaths: true,
   });

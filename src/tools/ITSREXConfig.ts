@@ -134,6 +134,13 @@ export interface ITSREXConfigBase {
    * option to enable ModuleFederationPluginOptions
    */
   moduleFederationOptions: ModuleFederationPluginOptions;
+
+  /**
+   * options to enable paths in tsconfig
+   *
+   * default = _false_
+   */
+  enablePaths?: boolean;
 }
 
 export type ITSREXConfig = Partial<ITSREXConfigBase>;

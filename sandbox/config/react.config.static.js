@@ -12,4 +12,5 @@ module.exports = DefaultConfig({
   // and the string will be the name of it
   // html will be not rendered
   outputStatic: 'static.min',
+  enablePaths: true,
 });

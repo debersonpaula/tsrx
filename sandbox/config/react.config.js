@@ -58,4 +58,6 @@ module.exports = DefaultConfig({
   skipConfigFile: false,
 
   configFile: 'samples/Config.ts',
+
+  enablePaths: true,
 });

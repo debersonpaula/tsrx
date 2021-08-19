@@ -75,11 +75,12 @@ export default function (
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
       plugins: [
-        new TsconfigPathsPlugin({
-          configFile: path.resolve(basePath, './tsconfig.json'),
-          extensions: ['.ts', '.tsx', '.js'],
-        }),
-      ],
+        configReactData.enablePaths &&
+          new TsconfigPathsPlugin({
+            configFile: path.resolve(basePath, './tsconfig.json'),
+            extensions: ['.ts', '.tsx', '.js'],
+          }),
+      ].filter(Boolean),
       alias: {
         process: 'process/browser',
       },
@@ -105,7 +106,6 @@ export default function (
       new webpack.ProvidePlugin({
         process: 'process/browser',
       }),
-      // new webpack.DefinePlugin(nodeEnv),
       // CLEARER
       // isEnvProduction &&
       //   new cwp.CleanWebpackPlugin({
