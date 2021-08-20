@@ -22,8 +22,8 @@ module.exports = DefaultConfig({
   sourcePath: 'sandbox',
   // output path
   outputPath: 'dist/sandbox-build',
-  // index.html template
-  htmlTemplate: 'sandbox/index.html',
+  // public path with index.html, favicon.ico, etc
+  publicFolder: 'sandbox/public',
   // port
   port: 8080,
   // hostname

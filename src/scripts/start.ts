@@ -31,6 +31,7 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
     const cfgdev = configDevServer(
       configReactData.host,
       false,
+      configReactData.publicFolder,
       configReactData.devServer,
     );
     WebpackDevServer.addDevServerEntrypoints(config, cfgdev);

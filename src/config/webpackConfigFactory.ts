@@ -5,6 +5,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import ExternalTemplateRemotesPlugin from 'external-remotes-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 import webpackOutputConfig from './output.config';
 import { babelLoader } from './rules/babelLoader';
@@ -19,6 +20,7 @@ import merge from './helpers/merge';
 import { mjsLoader } from './rules/mjsLoader';
 import { WebpackMode } from '../tools/interfaces/WebpackMode';
 import { svgLoader } from './rules/svgLoader';
+import findForJsFile from './helpers/findForFile';
 
 export default function (
   env: WebpackMode,
@@ -45,15 +47,26 @@ export default function (
     CONFIG_ENV: JSON.stringify(configReactData.env),
   };
 
+  // Source Entry file
+  const sourceEntryPoint = sourceFile
+    ? path.join(sourcePath, sourceFile)
+    : findForJsFile('index', sourcePath);
+
+  // Source HTML File
+  const htmlSourceFile = path.join(
+    basePath,
+    configReactData.publicFolder,
+    'index.html',
+  );
+
   const config: webpack.Configuration = {
     // ==== GENERAL ==========================================================================
     mode: webpackEnv,
     context: isEnvLibrary ? basePath : undefined,
-    // bail: isEnvProduction, // Stop compilation early in production
     // ==== ENTRY ============================================================================
     entry: isExposedModule
       ? [path.join(__dirname, 'tools/samples/blank-project.js')]
-      : [path.join(sourcePath, sourceFile)].filter(Boolean),
+      : sourceEntryPoint,
     // ==== OUTPUT ===========================================================================
     output: webpackOutputConfig(webpackEnv, basePath, configReactData),
     // ==== MODULE ===========================================================================
@@ -61,8 +74,6 @@ export default function (
       // makes missing exports an error instead of warning
       strictExportPresence: true,
       rules: [
-        // REPLACE TSLINT TO ESLINT
-        // tsLintLoader(sourcePath),
         configReactData.overrideLoader.babelLoader || babelLoader(webpackEnv),
         configReactData.overrideLoader.styleLoader || styleLoader(),
         mjsLoader(),
@@ -93,7 +104,7 @@ export default function (
         !isEnvLibrary &&
         !isEnvStatic &&
         htmlConfigPlugin(
-          path.join(basePath, configReactData.htmlTemplate),
+          htmlSourceFile,
           { ...configReactData.htmlEnv, ...configReactData.env },
           isEnvProduction,
         ),
@@ -123,23 +134,24 @@ export default function (
           analyzerMode: 'static',
           openAnalyzer: false,
         }),
+
+      // COPY PUBLIC FOLDER
+      (isEnvProduction || isEnvStatic) &&
+        configReactData.publicFolder &&
+        new CopyWebpackPlugin({
+          patterns: [
+            {
+              from: configReactData.publicFolder,
+              globOptions: {
+                ignore: ['**/index.html'],
+              },
+            },
+          ],
+        }),
     ].filter(Boolean),
     // ==== OPTIMIZE ==========================================================================
     optimization: {
-      // splitChunks:
-      //   isEnvLibrary || isEnvStatic
-      //     ? undefined
-      //     : {
-      //         cacheGroups: {
-      //           commons: {
-      //             test: /[\\/]node_modules[\\/]/,
-      //             name: 'vendor',
-      //             chunks: 'all',
-      //           },
-      //         },
-      //       },
       minimize: isEnvProduction,
-      // minimizer: [terserConfigPlugin()],
       usedExports: isEnvProduction,
       sideEffects: isEnvProduction,
     },

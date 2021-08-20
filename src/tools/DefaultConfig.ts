@@ -30,10 +30,18 @@ export function DefaultConfig(config: ITSREXConfig) {
     `);
   }
 
+  if (config.htmlTemplate) {
+    logger.warning(`
+  USAGE WARNING:
+  This property was removed.
+  Use 'publicFolder' instead and points to your
+  public folder that contains the html file.
+    `);
+  }
+
   const defaultConfig: ITSREXConfig = {
     ...config,
     sourcePath: config.sourcePath || 'src',
-    sourceFile: config.sourceFile || 'index.tsx',
     htmlTemplate: config.htmlTemplate || 'src/index.html',
     port: config.port || parseInt(process.env.PORT, 10) || 8080,
     host: config.host || process.env.HOST || 'localhost',

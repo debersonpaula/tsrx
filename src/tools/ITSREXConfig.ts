@@ -2,7 +2,6 @@ import type { Config } from '@jest/types';
 import { Configuration as WebpackConfiguration, RuleSetRule } from 'webpack';
 import { ModuleFederationPluginOptions } from './interfaces/ModuleFederationPluginOptions';
 import { WebpackMode } from './interfaces/WebpackMode';
-// import { Configuration as WebpackDevConfiguration } from 'webpack-dev-server';
 
 export interface IEnvKeyValues {
   [key: string]: string;
@@ -16,16 +15,23 @@ export interface ITSREXConfigBase {
   sourcePath: string;
 
   /**
-   * Source index file of the app
-   * default = index.tsx
+   * Source index file of the app.
+   *
+   * If not provided, the index file will be search
+   * on the sourcePath with these extensions => js, jsx, ts, tsx
    */
-  sourceFile: string;
+  sourceFile?: string;
 
   /**
+   * @deprecated
+   * This property was removed.
+   * se 'publicFolder' instead and points to your
+   * public folder that contains the html file.
+   *
    * Indicate the html template to run with application
    * default = src/index.html
    */
-  htmlTemplate: string;
+  htmlTemplate?: string;
 
   /**
    * port to be used in development
@@ -141,6 +147,13 @@ export interface ITSREXConfigBase {
    * default = _false_
    */
   enablePaths?: boolean;
+
+  /**
+   * Path for static public files.
+   *
+   * All these files will be copied to output path.
+   */
+  publicFolder?: string;
 }
 
 export type ITSREXConfig = Partial<ITSREXConfigBase>;
