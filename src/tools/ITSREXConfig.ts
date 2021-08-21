@@ -1,6 +1,7 @@
 import type { Config } from '@jest/types';
-import { Configuration as WebpackConfiguration } from 'webpack';
-import { Configuration as WebpackDevConfiguration } from 'webpack-dev-server';
+import { Configuration as WebpackConfiguration, RuleSetRule } from 'webpack';
+import { ModuleFederationPluginOptions } from './interfaces/ModuleFederationPluginOptions';
+import { WebpackMode } from './interfaces/WebpackMode';
 
 export interface IEnvKeyValues {
   [key: string]: string;
@@ -9,20 +10,28 @@ export interface IEnvKeyValues {
 export interface ITSREXConfigBase {
   /**
    * Source path of application files
+   * Default = src
    */
   sourcePath: string;
 
   /**
-   * Source index file of the app
-   * default = index.tsx
+   * Source index file of the app.
+   *
+   * If not provided, the index file will be search
+   * on the sourcePath with these extensions => js, jsx, ts, tsx
    */
-  sourceFile: string;
+  sourceFile?: string;
 
   /**
+   * @deprecated
+   * This property was removed.
+   * se 'publicFolder' instead and points to your
+   * public folder that contains the html file.
+   *
    * Indicate the html template to run with application
-   * default = index.html
+   * default = src/index.html
    */
-  htmlTemplate: string;
+  htmlTemplate?: string;
 
   /**
    * port to be used in development
@@ -33,6 +42,8 @@ export interface ITSREXConfigBase {
   /**
    * hostname to be used in development
    * will be set in webpack-dev-server
+   * 
+   * default = localhost
    */
   host: string;
 
@@ -41,7 +52,7 @@ export interface ITSREXConfigBase {
    * process.env
    *
    * @deprecated
-   * The property "htmlEnv" in config will be deprecated and removed.
+   * The property "htmlEnv" in config was removed.
    * Use "env" instead and adopt new config system
    */
   nodeEnv: IEnvKeyValues;
@@ -51,7 +62,7 @@ export interface ITSREXConfigBase {
    * available in HTML thru <%= htmlWebpackPlugin.options.propertyName
    *
    * @deprecated
-   * The property "nodeEnv" in config will be deprecated and removed.
+   * The property "nodeEnv" in config was removed.
    * Use "env" instead.
    */
   htmlEnv: IEnvKeyValues;
@@ -64,7 +75,9 @@ export interface ITSREXConfigBase {
   env: IEnvKeyValues;
 
   /**
-   * output path for the compiled bundle
+   * output path for the compiled bundle.
+   * 
+   * default = 'dist'
    */
   outputPath: string;
 
@@ -91,11 +104,6 @@ export interface ITSREXConfigBase {
   outputStatic: string;
 
   /**
-   * Indicate to use react-hot-loader plugin
-   */
-  reactHotLoader: boolean;
-
-  /**
    * Jest Test Customization
    */
   jest: Config.Argv;
@@ -103,14 +111,14 @@ export interface ITSREXConfigBase {
   /**
    * Webpack Dev Server Customization
    */
-  devServer: WebpackDevConfiguration;
+  devServer: any; // TODO: define type
 
   /**
    * Webpack customization
    * any properties define in this property
    * will override TSREX config
    */
-  webpack: WebpackConfiguration;
+  webpack: (config: WebpackConfiguration, env: WebpackMode) => void;
 
   /**
    * specify de Config file
@@ -123,6 +131,33 @@ export interface ITSREXConfigBase {
    * ignore the config file validation
    */
   skipConfigFile: boolean;
+
+  /**
+   * customize the default settings for the loaders
+   */
+  overrideLoader: {
+    babelLoader?: RuleSetRule;
+    styleLoader?: RuleSetRule;
+  };
+
+  /**
+   * option to enable ModuleFederationPluginOptions
+   */
+  moduleFederationOptions: ModuleFederationPluginOptions;
+
+  /**
+   * options to enable paths in tsconfig
+   *
+   * default = _false_
+   */
+  enablePaths?: boolean;
+
+  /**
+   * Path for static public files.
+   *
+   * All these files will be copied to output path.
+   */
+  publicFolder?: string;
 }
 
 export type ITSREXConfig = Partial<ITSREXConfigBase>;

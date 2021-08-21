@@ -1,85 +1,73 @@
 # TSRX
 
-This package replaces TSREX, due to removal of EXREDUX from the packages, giving freedom to choose any state management.
-
 [![Version](https://img.shields.io/npm/v/tsrx.svg)](https://npmjs.org/package/tsrx)
 
 ### <b>T</b>ype<b>S</b>cript + <b>React</b>
 
 This package contains the following modules:
 
-- Typescript > 3.8
-- React > 16.13
-- Jest 25 + Enzyme 3 (for tests)
+- Typescript > 4.3
+- React > 17
+- Jest 27 + testing-library
 
 The builder has the following module bundlers:
 
-- Webpack > 4.43
-- Babel > 7.9
+- Webpack > 5.51
+- Babel > 7.15
 
 ## Install
 
 ```bash
 # install tsrx
 npm i -S tsrx
+
+# install dependencies
+npm i -S react react-dom typescript
+
+# install dev dependencies
+npm i -D @types/react @types/react-dom
+
+# install test utilities
+npm i -D jest @testing-library/jest-dom @testing-library/react
 ```
 
-## Setup tsconfig and tslint
+## Setup tsconfig
 
 Extend base tsconfig.json from TSRX folder:
 
 ```json
 {
-  "extends": "./node_modules/tsrx/tsconfig.json",
+  "extends": "tsrx/tsconfig.json",
   "compilerOptions": {}
-}
-```
-
-Same for tslint.json:
-
-```json
-{
-  "extends": "./node_modules/tsrx/tslint.json"
 }
 ```
 
 ## Setup the script configuration
 
-Create a js file as example below to setup the scrips command:
+Create a js file as example below to setup the scrips command with a mininal setup:
 
 Ex.: _react.config.js_
 
 ```js
-var DefaultConfig = require('tsrx/tools').DefaultConfig;
+const { DefaultConfig } = require('tsrx/tools');
 
 module.exports = DefaultConfig({
-  // source of files
-  sourcePath: 'src',
-  // output path
-  outputPath: 'dist',
   // port to be used in development
   // will be set in webpack-dev-server
   port: 8080,
-  // hostname to be used in development
-  // will be set in webpack-dev-server
-  host: 'localhost',
-  // all enviroments to be set in process.env
-  nodeEnv: {
-    commentsExample: 'Comment from Node Enviroments',
-    booleanValueExample: true,
-    numericValueExample: 37,
-  },
-  // all enviroments to be set in HTMLWebpackPlugin
-  // available in HTML thru <%= htmlWebpackPlugin.options.propertyName %>
-  htmlEnv: {
-    htmlComments: 'Comment from HTML Enviroment',
+  devServer: {
+    // development server
+    // will open the browser
+    // as soon as the project
+    // was compiled
+    open: true,
   },
 });
 ```
 
 ## Using scripts
 
-TSRX have four methods to be used in scripts of the package.json.
+TSRX have methods to be used in scripts of the package.json.
 
 Is better to set unique config file for each method:
 
@@ -88,10 +76,66 @@ Is better to set unique config file for each method:
   "scripts": {
     "start": "tsrx start ./react.config.js",
     "build": "tsrx build ./react.config.prod.js",
-    "test": "tsrx test ./react.config.test.js",
-    "lib": "tsrx library ./react.config.lib.js"
+    "test": "tsrx test ./react.config.test.js"
   }
 }
+```
+
+## Advanced options
+
+Ex.: _react.config.js_
+
+```js
+const { DefaultConfig } = require('tsrx/tools');
+
+module.exports = DefaultConfig({
+  /**
+   * Source path of application files
+   * Default = src
+   */
+  sourcePath: 'src',
+
+  /**
+   * Source index file of the app.
+   *
+   * If not provided, the index file will be search
+   * on the sourcePath with these extensions => js, jsx, ts, tsx
+   */
+  sourceFile: 'index.ts',
+
+  /**
+   * output path for the compiled bundle.
+   *
+   * default = 'dist'
+   */
+  outputPath: 'dist',
+
+  /**
+   * port to be used in development
+   * will be set in webpack-dev-server
+   */
+  port: 8080,
+
+  /**
+   * hostname to be used in development
+   * will be set in webpack-dev-server
+   *
+   * default = localhost
+   */
+  host: 'localhost',
+
+  /**
+   * object with all enviroments to be set in
+   *  - node: thru process.env
+   *  - html: thru <%= htmlWebpackPlugin.options.propertyName %>
+   */
+  env: {
+    textExample: 'Comment from Node Enviroments',
+    booleanValueExample: true,
+    numericValueExample: 37,
+    htmlExample: 'Comment from HTML Enviroment',
+  },
+});
 ```
 
 ## Jest customization
@@ -100,12 +144,7 @@ In case, if your tests require specific Jest configuration, include jest propert
 
 ```js
 module.exports = DefaultConfig({
-  source: 'application',
-  outputPath: '',
-  nodeEnv: {},
-  htmlEnv: {},
-  port: 0,
-  hostname: '',
+  ...
   jest: {
     coverageThreshold: {
       global: {
@@ -127,13 +166,12 @@ module.exports = DefaultConfig({
 
 ## DevServer customization
 
-In case if is necessary to customize webpack-dev-server options, just include "__devServer__" in your _react.config.test.js_:
+In case if is necessary to customize webpack-dev-server options, just include "**devServer**" in your _react.config.test.js_:
 
 ```js
 module.exports = DefaultConfig({
   devServer: {
     open: true,
-    hot: true,
     publicPath: '/',
     contentBase: path.join(__dirname, 'dist'),
   },
@@ -144,40 +182,31 @@ module.exports = DefaultConfig({
 ## Webpack options customization
 
 Any properties defined in this property will override TSREX config:
+
 ```js
 module.exports = DefaultConfig({
-  webpack: {
-    // insert your config here
-  }
+  webpack: (config, env) => {
+    // set your own webpack config
+    config.output.publicPath = '/';
+  },
 });
 ```
 
-## Enable React Hot Loader
+## Module Federation
 
-This utility, enables the plugin __react-hot-loader__, that increments your application without losing the current state.
+Shared modules from webpack 5 can be configured
 
-To use this utility, just enable it in your _react.config.test.js_:
 ```js
 module.exports = DefaultConfig({
-  reactHotLoader: true,
-  ...
+  moduleFederationOptions: {
+    name: 'app-name',
+    shared: ['react', 'react-dom', 'react-router-dom'],
+    filename: 'remoteEntry.js',
+    exposes: {
+      './App': `./src/App`,
+    },
+  },
 });
-```
-
-And wrap the main app with the _reactHot_ function:
-```tsx
-import * as React from 'react';
-import { reactHot } from 'tsrx/tools';
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>Component Hot Reload Test</div>
-    );
-  }
-}
-
-export default reactHot(module, App);
 ```
 
 ## Sample Project

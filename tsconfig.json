@@ -1,20 +1,26 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
-    "outDir": "dist/out",
-    "declaration": false,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["es5", "es2015", "es6", "dom"],
-    "module": "commonjs",
-    "sourceMap": false,
-    "target": "es5",
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "outDir": "dist/out",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "target": "es6",
+    "typeRoots": ["node_modules/@types", "types/tscustom"],
     "paths": {
       "tsrx/*": ["dist/bin/*"]
     }
   },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./custom.d.ts"],
   "exclude": ["node_modules", "sandbox/**/*"]
 }

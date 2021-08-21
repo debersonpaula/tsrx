@@ -7,6 +7,6 @@ module.exports = babelJest.createTransformer({
   babelrc: false,
   configFile: false,
   presets: babelPresets('test'),
-  plugins: babelPlugins('test', false),
+  plugins: babelPlugins('test'),
   overrides: babelOverrides(),
 });

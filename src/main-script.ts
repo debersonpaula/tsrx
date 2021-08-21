@@ -1,7 +1,8 @@
 import { IScripts } from './scripts/utils/IScriptCallback';
 import scriptStart from './scripts/start';
 import scriptBuild from './scripts/build';
-import scriptLibrary from './scripts/library';
+import scriptExpose from './scripts/expose';
+// import scriptLibrary from './scripts/library';
 import scriptTest from './scripts/test';
 import logger from './tools/logger';
 
@@ -18,7 +19,8 @@ const nodeArgs = args.slice(1);
 const scripts: IScripts = {
   start: scriptStart,
   build: scriptBuild,
-  library: scriptLibrary,
+  expose: scriptExpose,
+  // library: scriptLibrary,
   test: scriptTest,
 };
 

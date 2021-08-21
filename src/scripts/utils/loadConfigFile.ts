@@ -10,7 +10,8 @@ export default function loadConfigFile(filename: string): ITSREXConfig {
 
   if (fs.existsSync(configFileName)) {
     try {
-      return __non_webpack_require__(configFileName);
+      // return __non_webpack_require__(configFileName);
+      return require(configFileName);
     } catch (error) {
       throw new Error(`Can not load "${configFileName}". ${error}`);
     }

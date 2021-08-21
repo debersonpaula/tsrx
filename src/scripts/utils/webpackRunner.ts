@@ -30,7 +30,7 @@ export default function (compiler: webpack.Compiler, afterBuild?: () => void) {
         logger.error('BUILD ERROR: ');
         info.errors.forEach((item) => {
           logger.information();
-          logger.error(item);
+          logger.error(item.stack);
         });
         logger.error(
           '===========================================================',
@@ -43,7 +43,9 @@ export default function (compiler: webpack.Compiler, afterBuild?: () => void) {
           '===========================================================',
         );
         logger.warning('BUILD WARNINGS: ');
-        logger.warning(info.warnings.toString());
+        info.warnings.forEach((item) => {
+          logger.warning(item.message);
+        });
         logger.warning(
           '===========================================================',
         );

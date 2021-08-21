@@ -14,5 +14,6 @@ module.exports = DefaultConfig({
     numericValue: 37
   },
   // library compilation mode
-  library: true
+  library: true,
+  enablePaths: true,
 });

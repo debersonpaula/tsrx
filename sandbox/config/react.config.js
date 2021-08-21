@@ -4,11 +4,15 @@
 process.env.DEBUG_OVERRIDE_TSRX_SOURCE = './';
 
 // Inject paths inside the test
-const tsconfig = require(require('path').resolve(process.cwd(), 'tsconfig.json'));
+const tsconfig = require(require('path').resolve(
+  process.cwd(),
+  'tsconfig.json',
+));
 const paths = tsconfig.compilerOptions.paths;
 const moduleNameMapper = {};
 for (var key in paths) {
-  moduleNameMapper[key.replace('*', '(.*)')] = '<rootDir>/' + paths[key][0].replace('*', '$1');
+  moduleNameMapper[key.replace('*', '(.*)')] =
+    '<rootDir>/' + paths[key][0].replace('*', '$1');
 }
 
 var DefaultConfig = require('../../dist/bin/tools').DefaultConfig;
@@ -18,6 +22,8 @@ module.exports = DefaultConfig({
   sourcePath: 'sandbox',
   // output path
   outputPath: 'dist/sandbox-build',
+  // public path with index.html, favicon.ico, etc
+  publicFolder: 'sandbox/public',
   // port
   port: 8080,
   // hostname
@@ -29,10 +35,8 @@ module.exports = DefaultConfig({
     ParamText: 'Text from env',
     ParamBoolean1: false,
     ParamBoolean2: true,
-    ParamObject: { label: 'Label from env', value: 'Value from env' }
+    ParamObject: { label: 'Label from env', value: 'Value from env' },
   },
-  // enable React Hot Loader
-  reactHotLoader: true,
 
   jest: {
     coverageThreshold: {
@@ -53,5 +57,7 @@ module.exports = DefaultConfig({
 
   skipConfigFile: false,
 
-  configFile: 'Config.ts',
+  configFile: 'samples/Config.ts',
+
+  enablePaths: true,
 });

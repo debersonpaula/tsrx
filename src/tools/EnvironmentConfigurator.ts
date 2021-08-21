@@ -2,7 +2,9 @@ import logger from './logger';
 
 export type IType<T> = new (...args: any[]) => T;
 
-export default function <T>(configurationClassType: IType<T>): T {
+export function EnvironmentConfigurator<T>(
+  configurationClassType: IType<T>,
+): T {
   let CONFIG_ENV = process.env.CONFIG_ENV;
   const CONFIG_ENV_VALIDATOR = process.env.CONFIG_ENV_VALIDATOR;
   if (CONFIG_ENV === undefined) {
@@ -78,3 +80,5 @@ function ParseConfig(configValue: any) {
   }
   return result;
 }
+
+export default EnvironmentConfigurator;
