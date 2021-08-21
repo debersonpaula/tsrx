@@ -1,3 +1,8 @@
+# DEPRECATED
+
+Projected deprecated. Please consider use v.1.x
+It's already support webpack 5.
+
 # TSRX
 
 This package replaces TSREX, due to removal of EXREDUX from the packages, giving freedom to choose any state management.
