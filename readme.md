@@ -44,7 +44,7 @@ Extend base tsconfig.json from TSRX folder:
 
 ## Setup the script configuration
 
-Create a js file as example below to setup the scrips command:
+Create a js file as example below to setup the scrips command with a mininal setup:
 
 Ex.: _react.config.js_
 
@@ -52,31 +52,22 @@ Ex.: _react.config.js_
 const { DefaultConfig } = require('tsrx/tools');
 
 module.exports = DefaultConfig({
-  // source of files
-  sourcePath: 'src',
-  // output path
-  outputPath: 'dist',
   // port to be used in development
   // will be set in webpack-dev-server
   port: 8080,
-  // hostname to be used in development
-  // will be set in webpack-dev-server
-  host: 'localhost',
-  // all enviroments to be set in process.env
-  env: {
-    commentsExample: 'Comment from Node Enviroments',
-    booleanValueExample: true,
-    numericValueExample: 37,
-    // all enviroments to be set in HTMLWebpackPlugin
-    // available in HTML thru <%= htmlWebpackPlugin.options.propertyName %>
-    htmlComments: 'Comment from HTML Enviroment',
+  devServer: {
+    // development server
+    // will open the browser
+    // as soon as the project
+    // was compiled
+    open: true,
   },
 });
 ```
 
 ## Using scripts
 
-TSRX have four methods to be used in scripts of the package.json.
+TSRX have methods to be used in scripts of the package.json.
 
 Is better to set unique config file for each method:
 
@@ -85,10 +76,66 @@ Is better to set unique config file for each method:
   "scripts": {
     "start": "tsrx start ./react.config.js",
     "build": "tsrx build ./react.config.prod.js",
-    "test": "tsrx test ./react.config.test.js",
-    "lib": "tsrx library ./react.config.lib.js"
+    "test": "tsrx test ./react.config.test.js"
   }
 }
+```
+
+## Advanced options
+
+Ex.: _react.config.js_
+
+```js
+const { DefaultConfig } = require('tsrx/tools');
+
+module.exports = DefaultConfig({
+  /**
+   * Source path of application files
+   * Default = src
+   */
+  sourcePath: 'src',
+
+  /**
+   * Source index file of the app.
+   *
+   * If not provided, the index file will be search
+   * on the sourcePath with these extensions => js, jsx, ts, tsx
+   */
+  sourceFile: 'index.ts',
+
+  /**
+   * output path for the compiled bundle.
+   *
+   * default = 'dist'
+   */
+  outputPath: 'dist',
+
+  /**
+   * port to be used in development
+   * will be set in webpack-dev-server
+   */
+  port: 8080,
+
+  /**
+   * hostname to be used in development
+   * will be set in webpack-dev-server
+   *
+   * default = localhost
+   */
+  host: 'localhost',
+
+  /**
+   * object with all enviroments to be set in
+   *  - node: thru process.env
+   *  - html: thru <%= htmlWebpackPlugin.options.propertyName %>
+   */
+  env: {
+    textExample: 'Comment from Node Enviroments',
+    booleanValueExample: true,
+    numericValueExample: 37,
+    htmlExample: 'Comment from HTML Enviroment',
+  },
+});
 ```
 
 ## Jest customization
@@ -97,12 +144,7 @@ In case, if your tests require specific Jest configuration, include jest propert
 
 ```js
 module.exports = DefaultConfig({
-  source: 'application',
-  outputPath: '',
-  nodeEnv: {},
-  htmlEnv: {},
-  port: 0,
-  hostname: '',
+  ...
   jest: {
     coverageThreshold: {
       global: {
@@ -143,8 +185,26 @@ Any properties defined in this property will override TSREX config:
 
 ```js
 module.exports = DefaultConfig({
-  webpack: {
-    // insert your config here
+  webpack: (config, env) => {
+    // set your own webpack config
+    config.output.publicPath = '/';
+  },
+});
+```
+
+## Module Federation
+
+Shared modules from webpack 5 can be configured
+
+```js
+module.exports = DefaultConfig({
+  moduleFederationOptions: {
+    name: 'app-name',
+    shared: ['react', 'react-dom', 'react-router-dom'],
+    filename: 'remoteEntry.js',
+    exposes: {
+      './App': `./src/App`,
+    },
   },
 });
 ```

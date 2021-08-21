@@ -8,7 +8,7 @@ require('esbuild')
     entryPoints: [inputFile],
     bundle: true,
     platform: 'node',
-    minify: true,
+    minify: false,
     outfile: outpuFile,
     external: [
       '@pmmmwh/react-refresh-webpack-plugin',

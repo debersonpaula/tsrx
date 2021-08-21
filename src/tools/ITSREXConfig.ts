@@ -42,6 +42,8 @@ export interface ITSREXConfigBase {
   /**
    * hostname to be used in development
    * will be set in webpack-dev-server
+   * 
+   * default = localhost
    */
   host: string;
 
