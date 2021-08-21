@@ -73,7 +73,9 @@ export interface ITSREXConfigBase {
   env: IEnvKeyValues;
 
   /**
-   * output path for the compiled bundle
+   * output path for the compiled bundle.
+   * 
+   * default = 'dist'
    */
   outputPath: string;
 

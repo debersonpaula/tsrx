@@ -42,7 +42,7 @@ export function DefaultConfig(config: ITSREXConfig) {
   const defaultConfig: ITSREXConfig = {
     ...config,
     sourcePath: config.sourcePath || 'src',
-    htmlTemplate: config.htmlTemplate || 'src/index.html',
+    outputPath: config.outputPath || 'dist',
     port: config.port || parseInt(process.env.PORT, 10) || 8080,
     host: config.host || process.env.HOST || 'localhost',
     env: config.env || {},

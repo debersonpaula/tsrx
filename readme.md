@@ -8,36 +8,37 @@ This package contains the following modules:
 
 - Typescript > 4.3
 - React > 17
-<!-- - Jest 25 + Enzyme 3 (for tests) -->
+- Jest 27 + testing-library
 
 The builder has the following module bundlers:
 
-- Webpack > 5.43
-- Babel > 7.14
+- Webpack > 5.51
+- Babel > 7.15
 
 ## Install
 
 ```bash
 # install tsrx
 npm i -S tsrx
+
+# install dependencies
+npm i -S react react-dom typescript
+
+# install dev dependencies
+npm i -D @types/react @types/react-dom
+
+# install test utilities
+npm i -D jest @testing-library/jest-dom @testing-library/react
 ```
 
-## Setup tsconfig and tslint
+## Setup tsconfig
 
 Extend base tsconfig.json from TSRX folder:
 
 ```json
 {
-  "extends": "./node_modules/tsrx/tsconfig.json",
+  "extends": "tsrx/tsconfig.json",
   "compilerOptions": {}
-}
-```
-
-Same for tslint.json:
-
-```json
-{
-  "extends": "./node_modules/tsrx/tslint.json"
 }
 ```
 
