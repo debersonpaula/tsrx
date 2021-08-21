@@ -8,8 +8,8 @@ module.exports = ({ appName, appPath, port, expose = false, remotes = null }) =>
     sourceFile: 'index.ts',
     // output path
     outputPath: `build/${appName}`,
-    // index.html template
-    htmlTemplate: `${appPath}/index.html`,
+    publicFolder: 'micro-frontend/public',
+
     // port
     port,
     // hostname
