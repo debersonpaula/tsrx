@@ -9,6 +9,7 @@ import StyledApp from './samples/StyledApp';
 import { DecoratorApp } from './samples/DecoratorApp';
 import SvgApp from './samples/SvgApp';
 import ImageApp from './samples/ImageApp';
+import ClassTypeApp from './samples/ClassTypeApp';
 
 export class App extends React.Component {
   render() {
@@ -26,6 +27,8 @@ export class App extends React.Component {
         <EnumApp />
         <hr />
         <DecoratorApp />
+        <hr />
+        <ClassTypeApp />
         <hr />
         <SvgApp />
         <hr />

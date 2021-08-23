@@ -1,26 +1,23 @@
-import webpack from 'webpack';
-import path from 'path';
-// import * as cwp from 'clean-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ExternalTemplateRemotesPlugin from 'external-remotes-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import path from 'path';
+import webpack from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-import webpackOutputConfig from './output.config';
-import { babelLoader } from './rules/babelLoader';
-// import { tsLintLoader } from './rules/tsLintLoader';
-import { fontLoader } from './rules/fontLoader';
-import { imageLoader } from './rules/imageLoader';
-import { styleLoader } from './rules/styleLoader';
-import { htmlConfigPlugin } from './plugins/htmlConfigPlugin';
-// import { terserConfigPlugin } from './plugins/terserConfigPlugin';
-import { ITSREXConfig } from '../tools/ITSREXConfig';
-import merge from './helpers/merge';
-import { mjsLoader } from './rules/mjsLoader';
-import { WebpackMode } from '../tools/interfaces/WebpackMode';
-import { svgLoader } from './rules/svgLoader';
 import findForJsFile from './helpers/findForFile';
+import webpackOutputConfig from './output.config';
+import { ITSREXConfig } from '../tools/ITSREXConfig';
+import { WebpackMode } from '../tools/interfaces/WebpackMode';
+import { babelLoader } from './rules/babelLoader';
+import { fontLoader } from './rules/fontLoader';
+import { htmlConfigPlugin } from './plugins/htmlConfigPlugin';
+import { imageLoader } from './rules/imageLoader';
+import { mjsLoader } from './rules/mjsLoader';
+import { styleLoader } from './rules/styleLoader';
+import { svgLoader } from './rules/svgLoader';
+import { terserConfigPlugin } from './plugins/terserConfigPlugin';
 
 export default function (
   env: WebpackMode,
@@ -154,6 +151,7 @@ export default function (
       minimize: isEnvProduction,
       usedExports: isEnvProduction,
       sideEffects: isEnvProduction,
+      minimizer: [terserConfigPlugin()],
     },
   };
   // ==== LIBRARY ==========================================================================
