@@ -1,4 +1,5 @@
 import React from 'react';
+import ClassTypeApp from './ClassTypeApp';
 
 const App = (props: { label?: string }) => {
   const [count, setCount] = React.useState(0);
@@ -30,6 +31,9 @@ const App = (props: { label?: string }) => {
         Del
       </button>
       {label && <p>{label}</p>}
+
+      <hr />
+      <ClassTypeApp />
     </div>
   );
 };
