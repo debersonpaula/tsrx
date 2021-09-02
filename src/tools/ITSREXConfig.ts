@@ -42,7 +42,7 @@ export interface ITSREXConfigBase {
   /**
    * hostname to be used in development
    * will be set in webpack-dev-server
-   * 
+   *
    * default = localhost
    */
   host: string;
@@ -76,13 +76,15 @@ export interface ITSREXConfigBase {
 
   /**
    * output path for the compiled bundle.
-   * 
+   *
    * default = 'dist'
    */
   outputPath: string;
 
   /**
    * trigger the flag to make project to be built as library
+   * 
+   * will be always = true for library script
    */
   library: boolean;
 
@@ -118,7 +120,10 @@ export interface ITSREXConfigBase {
    * any properties define in this property
    * will override TSREX config
    */
-  webpack: (config: WebpackConfiguration, env: WebpackMode) => void;
+  webpack: (
+    config: WebpackConfiguration,
+    env: 'development' | 'production',
+  ) => void;
 
   /**
    * specify de Config file
@@ -138,6 +143,10 @@ export interface ITSREXConfigBase {
   overrideLoader: {
     babelLoader?: RuleSetRule;
     styleLoader?: RuleSetRule;
+    svgLoader?: RuleSetRule;
+    imageLoader?: RuleSetRule;
+    fontLoader?: RuleSetRule;
+    mjsLoader?: RuleSetRule;
   };
 
   /**
