@@ -73,10 +73,10 @@ export default function (
       rules: [
         configReactData.overrideLoader.babelLoader || babelLoader(webpackEnv),
         configReactData.overrideLoader.styleLoader || styleLoader(),
-        mjsLoader(),
-        imageLoader(),
-        fontLoader(),
-        svgLoader(),
+        configReactData.overrideLoader.mjsLoader || mjsLoader(),
+        configReactData.overrideLoader.imageLoader || imageLoader(),
+        configReactData.overrideLoader.fontLoader || fontLoader(),
+        configReactData.overrideLoader.svgLoader || svgLoader(),
       ],
     },
     // ==== RESOLVE ===========================================================================

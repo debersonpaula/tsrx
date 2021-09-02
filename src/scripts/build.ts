@@ -17,7 +17,6 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
   const config = webpackConfigFactory('production', basePath, configReactData);
 
   // webpack compiler
-  // const compiler = webpackCompiler(configReactData, basePath, 'production');
   const compiler = webpackCompiler(config);
 
   if (!compiler) {

@@ -14,6 +14,7 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
 
   // load configutation react data
   const configReactData = loadConfigFile(configFile);
+  configReactData.library = true;
 
   // webpack config
   const config = webpackConfigFactory('production', basePath, configReactData);
