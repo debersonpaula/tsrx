@@ -15,7 +15,12 @@ export const babelPresets = (env: EnvType) => {
         },
       },
     ],
-    '@babel/react',
+    [
+      '@babel/preset-react',
+      {
+        runtime: 'automatic',
+      },
+    ],
     '@babel/preset-typescript',
   ].filter(Boolean);
 };

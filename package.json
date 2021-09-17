@@ -1,7 +1,7 @@
 {
   "name": "tsrx",
   "description": "Typescript + React",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "main": "index.js",
   "scripts": {
     "deploy:next": "npm run build && cd dist/bin && npm publish --tag next",
