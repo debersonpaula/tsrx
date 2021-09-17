@@ -145,6 +145,12 @@ export default function (
             },
           ],
         }),
+
+      // Solve issue with failing buffer
+      new webpack.ProvidePlugin({
+        process: 'process/browser',
+        Buffer: ['buffer', 'Buffer'],
+      }),
     ].filter(Boolean),
     // ==== OPTIMIZE ==========================================================================
     optimization: {
