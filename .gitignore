@@ -4,3 +4,4 @@ dist/
 build/
 coverage/
 __snapshots__
+.env

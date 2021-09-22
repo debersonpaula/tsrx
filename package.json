@@ -1,7 +1,7 @@
 {
   "name": "tsrx",
   "description": "Typescript + React",
-  "version": "1.1.6",
+  "version": "1.1.6-development",
   "main": "index.js",
   "scripts": {
     "deploy:next": "npm run build && cd dist/bin && npm publish --tag next",
@@ -16,7 +16,8 @@
     "mfe-app2-start": "node dist/bin/tsrx start micro-frontend/app2/react.config.js",
     "mfe-app2-build": "node dist/bin/tsrx expose micro-frontend/app2/react.config.js",
     "mfe-apps-serve": "npm run mfe-app1-build && npm run mfe-app2-build && serve ./build -p 5000",
-    "mfe-main-start": "node dist/bin/tsrx start micro-frontend/main/react.config.js"
+    "mfe-main-start": "node dist/bin/tsrx start micro-frontend/main/react.config.js",
+    "semantic-release": "semantic-release -d --no-ci"
   },
   "bin": {
     "tsrx": "./index.js"
@@ -66,6 +67,7 @@
     "jest": "27.0.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "semantic-release": "^18.0.0",
     "serve": "12.0.0",
     "typescript": "4.3.5",
     "webpack-cli": "4.7.2"
@@ -79,7 +81,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/debersonpaula/tsrx.git"
+    "url": "https://github.com/debersonpaula/tsrx.git"
   },
   "keywords": [
     "typescript",
@@ -88,5 +90,8 @@
   "bugs": {
     "url": "https://github.com/debersonpaula/tsrx/issues"
   },
-  "homepage": "https://github.com/debersonpaula/tsrx#readme"
+  "homepage": "https://github.com/debersonpaula/tsrx#readme",
+  "release": {
+    "branches": ["main", "next"]
+  }
 }
