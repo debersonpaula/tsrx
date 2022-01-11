@@ -60,16 +60,4 @@ module.exports = DefaultConfig({
   configFile: 'samples/Config.ts',
 
   enablePaths: true,
-
-  moduleFederationOptions: {
-    name: 'sandbox',
-    shared: {
-      react: { singleton: true, eager: true },
-      'react-dom': { singleton: true, eager: true },
-    },
-    filename: 'remoteEntry.js',
-    exposes: {
-      './App': `./sandbox/App`,
-    },
-  },
 });
