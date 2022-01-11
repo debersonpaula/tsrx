@@ -5,13 +5,14 @@ export const svgLoader = (): RuleSetRule => ({
   use: [
     {
       loader: '@svgr/webpack',
-      options: {
-        svgoConfig: {
-          plugins: {
-            removeViewBox: false, // added to preserve viewBox on SVG
-          },
-        },
-      },
+      // TODO: check removeViewBox
+      // options: {
+      //   svgoConfig: {
+      //     plugins: {
+      //       removeViewBox: false, // added to preserve viewBox on SVG
+      //     },
+      //   },
+      // },
     },
   ],
 });

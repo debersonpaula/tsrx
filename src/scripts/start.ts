@@ -31,21 +31,22 @@ const script: IScriptCallback = (args: string[], basePath: string) => {
     const cfgdev = configDevServer(
       configReactData.host,
       false,
-      configReactData.publicFolder,
+      // configReactData.publicFolder,
       configReactData.devServer,
     );
-    WebpackDevServer.addDevServerEntrypoints(config, cfgdev);
-    const devServer = new WebpackDevServer(compiler, cfgdev);
+    // WebpackDevServer.addDevServerEntrypoints(config, cfgdev);
+    const devServer = new WebpackDevServer(cfgdev, compiler);
     const port = configReactData.port;
     const hostname = configReactData.host;
 
     // start web dev server
-    devServer.listen(port, hostname, (error: any) => {
-      if (error) {
-        return reject(error);
-      }
-      resolve();
-    });
+    // devServer.start(port, hostname, (error: any) => {
+    //   if (error) {
+    //     return reject(error);
+    //   }
+    //   resolve();
+    // });
+    devServer.start().then(resolve).catch(reject);
   });
 };
 
